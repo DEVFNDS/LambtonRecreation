@@ -1,0 +1,38 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<%@ page import="java.sql.*" %>
+<html>
+<head>
+    <title>MySQL Connection Example</title>
+</head>
+<body>
+    <%
+        String jdbcUrl = "jdbc:mysql://localhost:3306/mydatabase";
+        String username = "your_username";
+        String password = "your_password";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
+
+            // Retrieve data from the 'mytable' table
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM mytable");
+
+            // Display the retrieved data
+            while (resultSet.next()) {
+                out.println("ID: " + resultSet.getInt("id") + "<br>");
+                out.println("Name: " + resultSet.getString("name") + "<br>");
+                out.println("Age: " + resultSet.getInt("age") + "<br><br>");
+            }
+
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    %>
+</body>
+</html>
