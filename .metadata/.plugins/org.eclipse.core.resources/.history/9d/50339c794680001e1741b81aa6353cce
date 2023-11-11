@@ -1,0 +1,5 @@
+package lambtonrecreation.util;
+
+public class DBConnection {
+
+}

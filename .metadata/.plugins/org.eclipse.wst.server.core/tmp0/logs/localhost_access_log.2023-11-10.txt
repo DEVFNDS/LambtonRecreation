@@ -1,0 +1,8 @@
+127.0.0.1 - - [10/Nov/2023:22:05:45 -0500] "GET / HTTP/1.1" 404 751
+0:0:0:0:0:0:0:1 - - [10/Nov/2023:22:05:47 -0500] "GET /Athletics_Recreation/Test.jsp HTTP/1.1" 200 128
+0:0:0:0:0:0:0:1 - - [10/Nov/2023:22:06:24 -0500] "GET /Athletics_Recreation/Test.jsp HTTP/1.1" 200 128
+0:0:0:0:0:0:0:1 - - [10/Nov/2023:22:27:26 -0500] "GET /Athletics_Recreation/Test.jsp HTTP/1.1" 200 121
+0:0:0:0:0:0:0:1 - - [10/Nov/2023:22:36:36 -0500] "GET /Athletics_Recreation/ HTTP/1.1" 404 776
+0:0:0:0:0:0:0:1 - - [10/Nov/2023:22:37:08 -0500] "GET /Athletics_Recreation/Test.jsp HTTP/1.1" 200 340
+127.0.0.1 - - [10/Nov/2023:23:01:03 -0500] "GET / HTTP/1.1" 404 751
+0:0:0:0:0:0:0:1 - - [10/Nov/2023:23:01:05 -0500] "GET /Athletics_Recreation/Test.jsp HTTP/1.1" 200 342
