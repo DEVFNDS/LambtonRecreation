@@ -19,11 +19,10 @@
         <a href="eventCard.jsp">Events</a>
         <a href="#">News/Articles</a>
         <% if (username != null){ %>
-        	<a href="logout">Logout</a>
-        	<%= username %>
+        	<p style="color: pink;"><%= username %> | </p><a href="logout">Logout</a>
         	
        <% } else { %>
-        	<a href="jsps/Register.jsp">Sign up</a>
+        	<a href="register">Sign up</a>
         	<a href="login">Sign in</a>
        <% } %>
     </nav>

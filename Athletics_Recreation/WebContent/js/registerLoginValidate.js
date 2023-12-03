@@ -166,14 +166,14 @@ function submitRegistrationForm() {
     var formData = $("#registrationForm").serialize();
     $.ajax({
         type: "POST",
-        url: "../register",
+        url: "register",
         data: formData,
         success: function (response) {
         	console.log("--nk inside response "+response);
             if (response === "success") {
             	console.log("--nk inside success response");
             	alert("Registration successful! Please proceed to login.");
-                window.location.href = "Login.jsp";
+                window.location.href = "login";
             } else {
                 $("#serverError").text(response);
             }
@@ -195,9 +195,9 @@ function submitLoginForm(){
             if (response === "success") {
                 window.location.href = "home";      
             }
-            /*else{
+            else{
             	$("#serverError").text(response);
-            }*/
+            }
         },
         error: function () {
             $("#serverError").text("An error occurred while processing your request. \n");

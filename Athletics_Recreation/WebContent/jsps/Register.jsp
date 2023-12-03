@@ -19,7 +19,7 @@
 <head>
     <title>User Registration</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-	<script type="text/javascript" src="../js/registerLoginValidate.js"></script>
+	<script type="text/javascript" src="js/registerLoginValidate.js"></script>
 </head>
 <body>
     <h2>User Registration Form</h2>
