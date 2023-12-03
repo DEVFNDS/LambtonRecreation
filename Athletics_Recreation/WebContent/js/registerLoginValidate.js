@@ -188,16 +188,16 @@ function submitLoginForm(){
 	var formData = $("#loginForm").serialize();
     $.ajax({
         type: "POST",
-        url: "../login",
+        url: "login",
         data: formData,
         success: function (response) {
         	console.log("--nk inside response "+response);
             if (response === "success") {
-            	console.log("--nk inside success response");
-                window.location.href = "Home.jsp";
-            }else{
-            	$("#serverError").text(response);
+                window.location.href = "home";      
             }
+            /*else{
+            	$("#serverError").text(response);
+            }*/
         },
         error: function () {
             $("#serverError").text("An error occurred while processing your request. \n");

@@ -14,7 +14,7 @@
     	String username = (session != null) ? (String) session.getAttribute("username") : null;
 	%>
 	<nav>
-        <a href="Home.jsp">Home</a>
+        <a href="home">Home</a>
         <a href="#">Sports</a>
         <a href="eventCard.jsp">Events</a>
         <a href="#">News/Articles</a>
@@ -24,7 +24,7 @@
         	
        <% } else { %>
         	<a href="jsps/Register.jsp">Sign up</a>
-        	<a href="jsps/Login.jsp">Sign in</a>
+        	<a href="login">Sign in</a>
        <% } %>
     </nav>
     

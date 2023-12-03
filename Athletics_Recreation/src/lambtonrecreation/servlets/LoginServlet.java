@@ -3,6 +3,7 @@ package lambtonrecreation.servlets;
 import java.io.IOException;
 import java.sql.Connection;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,10 +32,14 @@ public class LoginServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	/*protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}*/
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/jsps/Login.jsp");
+		dispatcher.forward(request, response);
+		
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -53,7 +58,9 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
             session.setAttribute("username", username);
             //response.sendRedirect("/jsps/Home.jsp");
-            response.getWriter().write("success");			
+            response.getWriter().write("success");	
+            //request.getRequestDispatcher("/jsps/Home.jsp").forward(request, response);
+    		
 		}else if(userExists == -2){			
 			response.getWriter().write("Incorrect Username and password. Try again.");
 		}
