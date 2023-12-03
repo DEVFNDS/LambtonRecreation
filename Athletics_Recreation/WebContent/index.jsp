@@ -27,7 +27,6 @@
     </nav>
 	
 	<img src="images/Home.png" alt="Welcome Image" id="welcome-image">
-<<<<<<< Updated upstream
 	
 	
 	<section id="sportsSection">
@@ -59,8 +58,6 @@
 	    <!-- Content for the News/Articles section -->
 	</section>
 
-=======
->>>>>>> Stashed changes
 
 </body>
 
