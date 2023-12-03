@@ -1,0 +1,32 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+
+	<%
+    	session = request.getSession(false);
+    	String username = (session != null) ? (String) session.getAttribute("username") : null;
+	%>
+	<nav>
+        <a href="Home.jsp">Home</a>
+        <a href="#">Sports</a>
+        <a href="eventCard.jsp">Events</a>
+        <a href="#">News/Articles</a>
+        <% if (username != null){ %>
+        	<a href="logout">Logout</a>
+        	<%= username %>
+        	
+       <% } else { %>
+        	<a href="jsps/Register.jsp">Sign up</a>
+        	<a href="jsps/Login.jsp">Sign in</a>
+       <% } %>
+    </nav>
+    
+</body>
+</html>

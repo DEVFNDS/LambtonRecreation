@@ -9,29 +9,12 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-
-	<nav>
-        <a href="#">Home</a>
-        <a href="#">Sports</a>
-        <a href="#">Events</a>
-        <a href="#">News/Articles</a>
-        <a href="#">Register</a>
-    </nav>
-    
-    Home page
- <a href="Register.jsp">Sign up</a>
- <a href="Login.jsp">Login</a>
- <% 
- HttpSession sess = request.getSession(false);
- String username = (session != null) ? (String) sess.getAttribute("username") : null;
- if (username != null) { %>
-    <p>Welcome, <%= username %>!</p>
-    <a href="../logout">Logout</a>
-<% }  else { %>
-    <p>You are not logged in.</p>
-<% } %>
+	
+	<%@ include file="NavigationMenu.jsp" %>
 	
 	<img src="images/Home.png" alt="Welcome Image" id="welcome-image">
+	
+	<!-- footer -->
 	
 </body>
 </html>
