@@ -32,3 +32,82 @@ img#welcome-image {
     max-width: 100%; /* Adjust as needed based on your design */
     height: auto;
 }
+/*event style*/
+/* Event form styling */
+form {
+	
+    max-width: 600px;
+    margin: 100px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: #4caf50;
+    color: #fff;
+    cursor: pointer;
+}
+/*event card style*/
+        .event-card .delete {
+            background-color: red;
+        }
+        .event-card .register {
+            background-color: orange;
+        }
+
+        #event-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 50px;
+        }
+
+        .event-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 16px;
+            padding: 16px;
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .event-card h2 {
+            margin-bottom: 8px;
+        }
+
+        .event-card p {
+            margin: 8px 0;
+        }
+
+        .event-card button {
+            margin-top: 8px;
+            padding: 8px;
+            cursor: pointer;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+        }	
+        .error-message {
+            color: red;
+        }	
