@@ -13,82 +13,113 @@
     // Set roles as a request attribute
     request.setAttribute("roles", roles);
 %>
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>User Registration</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/footer.css">
+    <link rel="stylesheet" type="text/css" href="css/loginregister.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-	<script type="text/javascript" src="js/registerLoginValidate.js"></script>
+    <script type="text/javascript" src="js/registerLoginValidate.js"></script>
 </head>
 <body>
-    <h2>User Registration Form</h2>
+    <%@ include file="../header.jsp" %>
 
-    <!--  <c:if test="${not empty error}">
-        <p style="color: red;"><%= request.getAttribute("error") %>qwerty</p>
-        <p>abc</p>
-    </c:if>-->
+    <div class="custom-container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div id="registration-box">
+                    <h2>User Registration Form</h2>
+                    <form id="registrationForm" class="needs-validation" novalidate>
+			        <!-- server-side error message here -->
+			        <div id="serverError" style="color: red;"></div>
 
-    <form id="registrationForm" >
-        <!-- server-side error message here -->
-        <div id="serverError" style="color: red;"></div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="fname" class="form-label">First Name:</label>
+                                <input type="text" name="fname" id="fname" class="form-control" required>
+                                <div id="fnameError" class="error"></div>
+                            </div>
 
-		<label for="fname">First Name:</label>
-		<input type="text" name="fname" id="fname"><br>
-		<div id="fnameError" class="error"></div>
-		
-		<label for="lname">Last Name:</label>
-		<input type="text" name="lname" id="lname"><br>
-		<div id="lnameError" class="error"></div>
-		
-		<label for="email">Email:</label>
-        <input type="email" name="email" id="email"><br>
-        <div id="emailError" class="error"></div>
-        
-        <label for="dob">Date of Birth:</label>
-		<input type="date" name="dob" id="dob"><br>
-		<div id="dobError" class="error"></div>      
-		
-		<label for="gender">Gender:</label>
-        <input type="radio" name="gender" id="gender" value="Male"> Male
-        <input type="radio" name="gender" id="gender" value="Female"> Female
-        <div id="genderError" class="error"></div>
-        <br>
+                            <div class="col-md-6">
+                                <label for="lname" class="form-label">Last Name:</label>
+                                <input type="text" name="lname" id="lname" class="form-control" required>
+                                <div id="lnameError" class="error"></div>
+                            </div>
+                        </div>
 
-		<label for="role">Role:</label>
-        <select name="role" id="role">
-            <% for (Role role : roles) { %>
-                <option value="<%= role.getRole() %>"><%= role.getRole() %></option>
-            <% } %>
-        </select>
-        <div id="roleError" class="error"></div>
-        
-        <br>
-        <hr/>
-        <br>
-        
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username"><br>
-        <div id="usernameError" class="error"></div>
-        
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password">
-        <div id="passwordError" class="error"></div>
-        <br>
-        
-        <label for="confirmPassword">Confirm Password:</label>
-        <input type="password" name="confirmPassword" id="confirmPassword"><br>
-        <div id="confirmPasswordError" class="error"></div>
-		
-		<br>
-		<hr/>
-		<br>
-		
-		<input type="checkbox" name="agreement" id="agreement"> I agree to the terms and conditions
-        <div id="agreementError" class="error"></div>
-        <br>
-        <input type="submit" value="Register">
-        <input type="reset" value="Clear Form">
-    </form>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email:</label>
+                            <input type="email" name="email" id="email" class="form-control" required>
+                            <div id="emailError" class="error"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="dob" class="form-label">Date of Birth:</label>
+                            <input type="date" name="dob" id="dob" class="form-control" required>
+                            <div id="dobError" class="error"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="gender" class="form-label">Gender:</label>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" name="gender" id="male" value="Male" class="form-check-input" required>
+                                <label for="male" class="form-check-label">Male</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" name="gender" id="female" value="Female" class="form-check-input" required>
+                                <label for="female" class="form-check-label">Female</label>
+                            </div>
+                            <div id="genderError" class="error"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="role" class="form-label">Role:</label>
+                            <select name="role" id="role" class="form-select" required>
+                       		 <% for (Role role : roles) { %>
+                            <option value="<%= role.getRole() %>"><%= role.getRole() %></option>
+                       		 <% } %>
+                    		</select>
+                            <div id="roleError" class="error"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username:</label>
+                            <input type="text" name="username" id="username" class="form-control">
+                            <div id="usernameError" class="error"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password:</label>
+                            <input type="password" name="password" id="password" class="form-control">
+                            <div id="passwordError" class="error"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Confirm Password:</label>
+                            <input type="password" name="confirmPassword" id="confirmPassword" class="form-control">
+                            <div id="confirmPasswordError" class="error"></div>
+                        </div>
+                        <div class="mb-3">
+                            <input type="checkbox" name="agreement" id="agreement" class="form-check-input shadow" required>
+                            <label for="agreement" class="form-check-label">I agree to the terms and conditions</label>
+                            <div id="agreementError" class="error"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="submit" value="Register" class="btn btn-primary">
+                            <input type="reset" value="Clear Form" class="btn btn-secondary">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> -->
 </body>
+<%@ include file="../footer.jsp" %>
 </html>

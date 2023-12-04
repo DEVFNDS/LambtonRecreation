@@ -5,7 +5,7 @@
 %>
 
 <nav>
-    <a href="#">Home</a>
+    <a href="home">Home</a>
     <a href="#sportsSection">Sports</a>
     <a href="#eventsSection">Events</a>
     <a href="#newsSection">News/Articles</a>
