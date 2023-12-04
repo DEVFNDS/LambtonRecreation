@@ -15,9 +15,7 @@
 
 <body class="my-login-style"> <!-- Change class to my-login-style -->
     <%@ include file="../header.jsp" %>
-    <%
-        String error = (String) request.getAttribute("error");
-    %>
+    
 
     <div class="container my-login-container">
         <div class="row justify-content-center">
@@ -27,13 +25,9 @@
                     <div class="card-body">
                         <h2>Login</h2>
 
-                        <% if (error != null) { %>
-                            <div class="alert alert-danger" role="alert">
-                                <%= error %>
-                            </div>
-                        <% } %>
+                    
 						<!--<form action="${pageContext.request.contextPath}/LoginServlet" method="post">-->
-                        <form id="loginForm" action="login" method="post">
+                        <form id="loginForm" >
 						<div id="serverError" style="color: red;"></div>
 		
                             <div class="mb-3">
