@@ -20,8 +20,13 @@
     <title>User Registration</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<script type="text/javascript" src="js/registerLoginValidate.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/footer.css">
 </head>
 <body>
+	
+	<%@ include file="../header.jsp" %>
+
     <h2>User Registration Form</h2>
 
     <!--  <c:if test="${not empty error}">
@@ -90,5 +95,7 @@
         <input type="submit" value="Register">
         <input type="reset" value="Clear Form">
     </form>
+    
+    <%@ include file="../footer.jsp" %>
 </body>
 </html>

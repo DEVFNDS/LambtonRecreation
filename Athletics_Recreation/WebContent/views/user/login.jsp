@@ -7,18 +7,15 @@
 	<title>Login</title>
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<script type="text/javascript" src="js/registerLoginValidate.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/footer.css">
 </head>
 <body>
-	<%
-    	String error = (String) request.getAttribute("error");
-	%>
-
+	
+	<%@ include file="../header.jsp" %>
+	
 	<h2>Login</h2>
 
-	<% if (error != null) { %>
-    	<p style="color: red;"><%= error %></p>
-	<% } %>
-	
 	<!--<form action="${pageContext.request.contextPath}/LoginServlet" method="post">-->
 	<form id="loginForm" >
 		<div id="serverError" style="color: red;"></div>
@@ -34,5 +31,7 @@
         <input type="submit" value="Login">
         <input type="button" id="resetButton" value="Reset">
     </form>
+    
+    <%@ include file="../footer.jsp" %>
 </body>
 </html>
