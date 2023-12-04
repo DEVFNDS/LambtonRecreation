@@ -1,15 +1,19 @@
 <!-- Group-4 Term Project -->
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+
 <%@page import="lambtonrecreation.dao.SportDao"%>
 <%@page import="lambtonrecreation.model.Sport"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="ISO-8859-1">
 	<title>Welcome to Athletes and Recreation</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/footer.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 </head>
 <body>
 
@@ -45,7 +49,9 @@
 	<section id="newsSection">
 	    <!-- Content for the News/Articles section -->
 	</section>
-
-
+	
 </body>
+
+	<%@ include file="footer.jsp" %>
+
 </html>
