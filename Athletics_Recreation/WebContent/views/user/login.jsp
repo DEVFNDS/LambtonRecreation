@@ -20,7 +20,7 @@
 	<% } %>
 	
 	<!--<form action="${pageContext.request.contextPath}/LoginServlet" method="post">-->
-	<form id="loginForm" action="login" method="post">
+	<form id="loginForm" action="../../login" method="post">
 		<div id="serverError" style="color: red;"></div>
 		
         <label for="username">Username:</label>

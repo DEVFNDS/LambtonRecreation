@@ -41,7 +41,7 @@
             <p><strong>Registration Deadline:</strong><%= obj.getRegistrationDeadline() %></p>
              <a href='../../EditEventServlet?id=<%= obj.getId() %>'> <button class="edit">Edit</button> </a>
            <a href='../../DeleteEventServlet?id=<%= obj.getId() %>'> <button class="delete">Delete</button> </a>
-            <button class="register">Register</button>
+           <a href='../../EventRegisterServlet?id=<%= obj.getId() %>'> <button class="register">Register</button> </a>
         </div>
 
   
