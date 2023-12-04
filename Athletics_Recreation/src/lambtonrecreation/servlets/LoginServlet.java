@@ -2,6 +2,8 @@ package lambtonrecreation.servlets;
 
 import java.io.IOException;
 
+import java.util.Map;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,25 +35,36 @@ public class LoginServlet extends HttpServlet {
 		
 		request.getSession().setAttribute("userName", username);
 		
-		int userExists = ApplicationDao.validateUser(username, password);
-		
-		if(userExists == 1){
-			HttpSession session = request.getSession();
-            session.setAttribute("username", username);
-            //response.sendRedirect("/jsps/Home.jsp");
-            response.getWriter().write("success");			
-		}else if(userExists == -2){			
-			response.getWriter().write("Incorrect Username and password. Try again.");
-		}
-		else if(userExists == -1){			
-			//request.setAttribute("error", "Invalid Credentials, please login again!");
-			//request.getRequestDispatcher("/jsps/Login.jsp").forward(request,response);
-			response.getWriter().write("Username doesn't exist.");
-		}else if(userExists == 0){			
-			response.getWriter().write("Wrong password. Try again.");
-		}else {
-			response.getWriter().write("Some DB error occurred while validating.");
+		Map<String, Object> mapOfUserValAndRole = ApplicationDao.validateUser(username, password);
+		if(mapOfUserValAndRole.size() > 0 && mapOfUserValAndRole.containsKey("userExists")) {
+			int userExists = (int) mapOfUserValAndRole.get("userExists");
+			
+			switch(userExists) {
+				case 1:
+					HttpSession session = request.getSession();
+					session.setAttribute("username", username);
+					if(mapOfUserValAndRole.containsKey("roleName")) {
+						session.setAttribute("roleName", (String) mapOfUserValAndRole.get("roleName"));
+					}
+					System.out.println("Fine Sev");
+					response.getWriter().write("success");	
+					break;
+				
+				case 0:
+					System.out.println("Wrong password Ser");
+					response.getWriter().write("Wrong password. Try again.");
+					break;
+					
+				case -1:
+					System.out.println("Wrong user Ser");
+					response.getWriter().write("Username doesn't exist.");
+					break;
+					
+				default:
+					System.out.println("Some Db Ser "+ userExists);
+					response.getWriter().write("Some DB error occurred while validating.");
+					break;
+			}
 		}
 	}
-
 }

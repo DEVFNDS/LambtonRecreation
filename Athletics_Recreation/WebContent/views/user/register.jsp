@@ -29,7 +29,7 @@
         <p>abc</p>
     </c:if>-->
 
-    <form id="registrationForm" action="../register" method="post">
+    <form id="registrationForm" >
         <!-- server-side error message here -->
         <div id="serverError" style="color: red;"></div>
 

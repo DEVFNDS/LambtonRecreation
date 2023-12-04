@@ -1,11 +1,14 @@
 package lambtonrecreation.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import lambtonrecreation.util.DBConnection;
 import lambtonrecreation.model.Role;
@@ -41,38 +44,46 @@ public class ApplicationDao {
 		return rowsAffected;
 	}
 	
-	public static int validateUser(String username, String password) {
-		int userExists = -5;
+	public static Map<String, Object> validateUser(String username, String password) {
+		Map<String, Object> mapOfUserValAndRole = new HashMap<String, Object>();
+		mapOfUserValAndRole.put("userExists", -5);
+		
 		try {
 			Connection connection = DBConnection.getConnection();
-
-			String sqlQuery = "select * from user where username=? or password=?";
 			PreparedStatement statement;
 		
+			String sqlQuery = "SELECT u.username, u.password, r.role " +
+                    "FROM user u " +
+                    "INNER JOIN user_role r ON u.role = r.id " +
+                    "WHERE u.username = ?";
 		
 			statement = connection.prepareStatement(sqlQuery);
 			statement.setString(1, username);
-			statement.setString(2, password);
 			
 			ResultSet resultSet = statement.executeQuery();
 			
-			while (resultSet.next()) {
-                if(resultSet.getString("username").equals(username) && resultSet.getString("password").equals(password)) {
-                	userExists = 1;
-                }else if(!resultSet.getString("username").equals(username)) {
-                	userExists = -1;
-                }else if(!resultSet.getString("password").equals(password)) {
-                	userExists = 0;
-                }else if(!resultSet.getString("username").equals(username) && !resultSet.getString("password").equals(password)) {
-                	userExists = -2;
-                }
-            }
+			if(resultSet.next()) {
+				System.out.println("Inside if DAo");
+				if(resultSet.getString("password").equals(password)) {
+	                mapOfUserValAndRole.put("userExists", 1);
+	                mapOfUserValAndRole.put("roleName", resultSet.getString("role"));
+	                System.out.println("Everything fine Dao");
+	             }else {
+	                mapOfUserValAndRole.put("userExists", 0);
+	                System.out.println("Wrong password DAo");
+	              }
+	               	
+			}else {
+				System.out.println("Inside else DAo");
+				mapOfUserValAndRole.put("userExists", -1);
+            	System.out.println("Wrong username DAo");
+			}
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		return userExists;
+		System.out.println("Dao mapOfUserValAndRole: "+mapOfUserValAndRole);
+		return mapOfUserValAndRole;
 
 	}
 	
