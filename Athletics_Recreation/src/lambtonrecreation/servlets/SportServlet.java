@@ -23,14 +23,16 @@ public class SportServlet extends HttpServlet {
 	private final SportDao sportDao = new SportDao();   
     	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("Inside get method of sports servlet");
 		String action = request.getParameter("action");
-
+		System.out.println("Action :"+action);
         if ("edit".equals(action)) {
             editSportForm(request, response);
         } else if ("delete".equals(action)) {
             deleteSport(request, response);
         } else {
             // Default action: List all sports
+        	System.out.println("inside else part");
             listAllSports(request, response);
         }
 	}
@@ -49,9 +51,10 @@ public class SportServlet extends HttpServlet {
 	}
 	
 	private void listAllSports(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Sport> sports = sportDao.getAllSports();
+        System.out.println("inside list all sports method");
+		List<Sport> sports = sportDao.getAllSports();
         request.setAttribute("sports", sports);
-        request.getRequestDispatcher("/sports.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/sport/sports.jsp").forward(request, response);
 	}
 	
 	private void addSport(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -82,7 +85,7 @@ public class SportServlet extends HttpServlet {
 	
 	        if (sport != null) {
 	            request.setAttribute("sport", sport);
-	            request.getRequestDispatcher("/edit_sport.jsp").forward(request, response);
+	            request.getRequestDispatcher("/views/sport/edit_sport.jsp").forward(request, response);
 	        } else {
 	            // Handle the case where the sport is not found
 	            response.sendRedirect(request.getContextPath() + "/sports?error=sportNotFound");

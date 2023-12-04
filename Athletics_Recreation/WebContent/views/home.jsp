@@ -13,16 +13,9 @@
 </head>
 <body>
 
-	<nav>
-        <a href="#">Home</a>
-        <a href="#sportsSection">Sports</a>
-        <a href="#eventsSection">Events</a>
-        <a href="#newsSection">News/Articles</a>
-        <a href="#">Register</a>
-    </nav>
+	<%@ include file="header.jsp" %>
 	
 	<img src="images/Home.png" alt="Welcome Image" id="welcome-image">
-	
 	
 	<section id="sportsSection">
 		<h2>Sports</h2>
