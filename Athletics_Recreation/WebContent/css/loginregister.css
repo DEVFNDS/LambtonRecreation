@@ -1,0 +1,135 @@
+/* login style */
+.my-login-style {
+    background-color: #f8f9fa;
+}
+
+.my-login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+}
+
+.my-login-style .justify-content-center {
+    justify-content: unset !important;
+}
+
+.my-login-style form {
+    max-width: 100%;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.my-login-style .card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: max-content;
+    text-align: left !important;
+}
+
+.my-login-style .card-body {
+    padding: 2rem;
+}
+
+.my-login-style h2 {
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.my-login-style .alert {
+    margin-bottom: 20px;
+}
+
+.my-login-style .form-label {
+    font-weight: bold;
+    color: #495057;
+}
+
+.my-login-style .input-group-text {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    height: 38px;
+}
+
+.my-login-style .form-control {
+    border-radius: 0 !important;
+    height: 38px !important;
+}
+
+.my-login-style .btn-primary,
+.my-login-style .btn-secondary {
+    border-radius: 10px;
+    padding: 10px 20px;
+    margin-top: 20px;
+}
+
+.my-login-style .btn-secondary {
+    background-color: #6c757d;
+}
+.error{
+	color:red;
+}
+/* register style */
+
+body {
+    background-color: #f8f9fa;
+}
+
+label {
+    display: inline-block !important;
+    margin: 4px auto !important;
+}
+
+#registration-box {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    /* Add some top margin for separation */
+    max-width: fit-content;
+    /* Set the maximum width to fit the content */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#registration-box h2 {
+    text-align: center;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 0;
+    /* Add this line to remove the default margin */
+}
+
+.custom-container {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#registrationForm {
+    max-width: fit-content;
+    margin: auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 50px;
+}
+
+#registration-box #registrationForm .mb-3 input[type="submit"].btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+#registration-box #registrationForm .mb-3 input[type="reset"].btn-secondary {
+    background-color: #6c757d;
+    border: none;
+}
