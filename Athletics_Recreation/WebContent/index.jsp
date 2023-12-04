@@ -59,7 +59,7 @@
 	</section>
 
 
-</body>
+</body> 
 
 <footer id="footer">
       <div class="content">
@@ -116,7 +116,7 @@
       <div class="bottom-details">
         <div class="bottom_text">
           <span class="copyright_text"
-            >Copyright © 2023
+            >Copyright ï¿½ 2023
             <a href="home.html">Lambton Canada Inc.</a>All rights
             reserved</span
           >
