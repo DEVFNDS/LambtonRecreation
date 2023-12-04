@@ -25,7 +25,7 @@ public class SportDao {
 
 	//Instance variable for the connection
 	private final Connection connection;
-	PreparedStatement preparedStatement = null;
+	PreparedStatement  preparedStatement = null;
 	
 	public SportDao() {
 		try {
@@ -64,7 +64,7 @@ public class SportDao {
 		return sport;
 	}
 	
-	public List<Sport> getAllSports() {
+	public  List<Sport> getAllSports() {
         List<Sport> sports = new ArrayList<>();
 		try {
 			preparedStatement = connection.prepareStatement(SELECT_ALL_SQL);
