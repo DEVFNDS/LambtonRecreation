@@ -21,7 +21,7 @@ import lambtonrecreation.model.Sport;
 /**
  * Servlet implementation class InsEventServlet
  */
-@WebServlet("/InsEventServlet")
+@WebServlet("/insertevent")
 public class InsEventServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
@@ -79,7 +79,7 @@ public class InsEventServlet extends HttpServlet {
             
             int status = EventDao.saveEvent(event);
             if(status > 0) {
-            	response.sendRedirect("/views/event/eventCard.jsp");
+            	response.sendRedirect("views/event/eventCard.jsp");
             }
 
             System.out.println("Parsed Date and Time: " + dateTime);

@@ -80,13 +80,13 @@
       <h2 class="mt-3 text-center">Registered Events</h2>
       <div class="cards">
         <!-- Event 1 -->
-        <div class="card" style="width: 50vh">
+        
         
         <%
     if (eventList != null && !eventList.isEmpty()) {
         for (Event obj : eventList) {
 %>
-        
+        <div class="card" style="width: 50vh">
           <div class="card-text">
           
             <h2><%= obj.getName() %></h2>
@@ -96,6 +96,7 @@
             <p class="text-muted"><strong>Description:</strong><%= obj.getDescription() %> </p>
             <p class="text-muted"><strong>Registration Deadline:</strong><%= obj.getRegistrationDeadline() %></p>
           </div>
+          </div>
           <%
         }
     } else {
@@ -104,7 +105,7 @@
 <%
     }
 %>
-        </div>
+        
         </div>
     </section>
     <section>

@@ -40,7 +40,7 @@
             <p><strong>Description:</strong><%= obj.getDescription() %> </p>
             <p><strong>Registration Deadline:</strong><%= obj.getRegistrationDeadline() %></p>
              <a href='../../EditEventServlet?id=<%= obj.getId() %>'> <button class="edit">Edit</button> </a>
-           <a href='../../DeleteEventServlet?id=<%= obj.getId() %>'> <button class="delete">Delete</button> </a>
+           <a href='../../deleteevent?id=<%= obj.getId() %>'> <button class="delete">Delete</button> </a>
            <a href='../../EventRegisterServlet?id=<%= obj.getId() %>'> <button class="register">Register</button> </a>
         </div>
 

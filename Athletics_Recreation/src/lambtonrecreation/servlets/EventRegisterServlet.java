@@ -30,14 +30,19 @@ public class EventRegisterServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String username = String.valueOf(request.getSession().getAttribute("userName"));
-		System.out.println("username "+ username);
-		
-		if(username != null) {
-			int event_id = Integer.valueOf(request.getParameter("id"));
-			int status = UserEventDao.userEventSave(username, event_id);
+		if( request.getSession().getAttribute("username") != null) {
+			String username = String.valueOf(request.getSession().getAttribute("username")) ;
+			System.out.println("username "+ username);
 			
-			response.sendRedirect("views/event/eventCard.jsp");
+			if(username != null) {
+				int event_id = Integer.valueOf(request.getParameter("id"));
+				int status = UserEventDao.userEventSave(username, event_id);
+				
+				response.sendRedirect("views/event/eventCard.jsp");
+			}
+		}
+		else {
+			response.sendRedirect("views/user/login.jsp");
 		}
 		response.getWriter().write("Session ended Please Login Again !!!");
 	}

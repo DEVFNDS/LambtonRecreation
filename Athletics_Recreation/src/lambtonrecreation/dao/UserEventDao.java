@@ -100,7 +100,8 @@ public class UserEventDao {
 				ps.setInt(1,user_id);
 				ResultSet rs=ps.executeQuery();
 				while(rs.next()){
-					Event event = EventDao.getEventById(String.valueOf(rs.getInt(1)));
+					Event event = new Event();
+					event =EventDao.getEventById(String.valueOf(rs.getInt(2)));
 					eventList.add(event);
 				}
 				DBConnection.closeConnection(connection);

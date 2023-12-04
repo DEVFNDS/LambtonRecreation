@@ -6,7 +6,7 @@
 <head>
     <meta charset="ISO-8859-1">
     <title>Welcome to Athletes and Recreation</title>
-    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
 
@@ -34,7 +34,7 @@
     request.setAttribute("sports", sports);
 %>
 
-<form action="../../InsEventServlet" method="post" onsubmit="return validateForm()" novalidate>
+<form id="eventFormId" action="insertevent" method="post" onsubmit="return validateForm()" novalidate>
     <label for="name">Event Name:</label>
     <input type="text" id="name" name="name" required>
     <div id="name-error" class="error-message"></div>
@@ -130,12 +130,27 @@
             showError("registration_deadline", "Invalid date and time format.");
             return false;
         }
-        
-
+       
+        submitForm();
         // If all validations pass, return true to submit the form
-        return true;
+        return false;
     }
+	
+    function submitForm() {
+        // Perform any additional actions before form submission (if needed)
 
+        // Submit the form
+        document.getElementById("eventFormId").submit();
+        
+        // After successful submission, clear the form fields
+        clearForm();
+    }
+    
+    function clearForm() {
+    	
+        document.getElementById("eventFormId").reset(); // Replace "formId" with the actual ID of your form
+    }
+    
     function isValidDate(value) {
         var regex = /^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-\d{4}$/;
         return regex.test(value);

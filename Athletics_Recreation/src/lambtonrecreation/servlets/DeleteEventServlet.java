@@ -12,7 +12,7 @@ import lambtonrecreation.dao.EventDao;
 /**
  * Servlet implementation class DeleteEventServlet
  */
-@WebServlet("/DeleteEventServlet")
+@WebServlet("/deleteevent")
 public class DeleteEventServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -31,7 +31,7 @@ public class DeleteEventServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String id = request.getParameter("id");
 		EventDao.delete(id);
-		response.sendRedirect("eventCard.jsp");
+		response.sendRedirect("views/event/eventCard.jsp");
 	}
 
 	

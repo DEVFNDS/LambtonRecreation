@@ -39,7 +39,7 @@ public class ViewEventServlet extends HttpServlet {
 		
 		 request.setAttribute("eventList", eventList);
 		 
-		 RequestDispatcher dispatcher = request.getRequestDispatcher("eventCard.jsp");
+		 RequestDispatcher dispatcher = request.getRequestDispatcher("views/event/eventCard.jsp");
 	      dispatcher.forward(request, response);
 	}
 
