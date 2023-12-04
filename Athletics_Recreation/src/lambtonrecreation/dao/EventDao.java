@@ -87,7 +87,10 @@ public class EventDao {
 			if(rs.next()){
 				event.setId(Integer.valueOf(id));
 				event.setName(rs.getString(2));
-				event.setSportId(rs.getInt(3));
+				int sportId = rs.getInt(3);
+				event.setSportId(sportId);
+				Sport sport = sportDao.getSportById(sportId);
+				event.setSportName(sport.getName());
 				event.setDateTime(rs.getTimestamp(4));
 				event.setLocation(rs.getString(5));
 				event.setDescription(rs.getString(6));

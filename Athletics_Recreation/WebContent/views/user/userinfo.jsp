@@ -10,7 +10,7 @@
   </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
-  <link rel="stylesheet" type="text/css" href="../../css/userinfo.css" />
+  <link rel="stylesheet" type="text/css" href="css/userinfo.css" />
   <link rel="icon" type="image/x-icon" href="../assets/images/favicon.ico" />
 </head>
 
@@ -42,6 +42,19 @@
       </div>
     </div>
   </nav>
+  
+<%@ page import="java.util.List" %>
+<%@ page import="lambtonrecreation.model.Event" %>
+<%@ page import="lambtonrecreation.model.User" %> 
+  
+  <%
+    List<Event> eventList = (List<Event>) request.getAttribute("eventList");
+	User user = (User) request.getAttribute("user");
+	if(user == null){
+		user = new User();
+	}
+%>
+  
   <main>
     <section>
       <h2 class="mt-3 text-center">User Profile</h2>
@@ -53,12 +66,11 @@
         <!-- Card for user information -->
         <div class="card" style="width: 50vh">
           <div class="card-text">
-            <h2>John Doe</h2>
-            <p class="text-muted">Athlete</p>
-            <p class="text-muted">123 Sports Street, City, Country</p>
+            <h2><%= user.getFirstName() %> <%= user.getLastName() %></h2>
+             <p class="text-muted"><%= user.getGender() %></p>
+            <p class="text-muted"><%= user.getDob() %></p>
             <p style="text-decoration: underline">Contact Info:</p>
-            <h5>john.doe@example.com</h5>
-            <h5>555-123-4567</h5>
+            <h5><%= user.getEmail() %></h5>
           </div>
         </div>
       </div>
@@ -69,26 +81,29 @@
       <div class="cards">
         <!-- Event 1 -->
         <div class="card" style="width: 50vh">
+        
+        <%
+    if (eventList != null && !eventList.isEmpty()) {
+        for (Event obj : eventList) {
+%>
+        
           <div class="card-text">
-            <h2>Marathon Challenge</h2>
-            <p class="text-muted"><Strong>Sport ID:</Strong> 001</p>
-            <p class="text-muted"><strong>Date and Time:</strong> July 15, 2023, 9:00 AM</p>
-            <p class="text-muted"><strong>Location:</strong> City Park Stadium</p>
-            <p class="text-muted"><strong>Description:</strong> Join the city marathon and showcase your running skills.</p>
-            <p class="text-muted"><strong>Registration Deadline:</strong> July 10, 2023</p>
+          
+            <h2><%= obj.getName() %></h2>
+            <p class="text-muted"><strong>Sport:</strong><%= obj.getSportName() %> </p>
+            <p class="text-muted"><strong>Date and Time:</strong><%=  obj.getDateTime() %></p>
+            <p class="text-muted"><strong>Location:</strong><%= obj.getLocation() %></p>
+            <p class="text-muted"><strong>Description:</strong><%= obj.getDescription() %> </p>
+            <p class="text-muted"><strong>Registration Deadline:</strong><%= obj.getRegistrationDeadline() %></p>
           </div>
-        </div>
-
-        <!-- Event 2 -->
-        <div class="card" style="width: 50vh">
-          <div class="card-text">
-            <h2>Basketball Tournament</h2>
-            <p class="text-muted">Sport ID: 002</p>
-            <p class="text-muted">Date and Time: August 5, 2023, 2:00 PM</p>
-            <p class="text-muted">Location: City Sports Arena</p>
-            <p class="text-muted">Description: Compete in our annual basketball tournament and win exciting prizes.</p>
-            <p class="text-muted">Registration Deadline: July 30, 2023</p>
-          </div>
+          <%
+        }
+    } else {
+%>
+    <p>No objects in the list.</p>
+<%
+    }
+%>
         </div>
         </div>
     </section>
