@@ -27,7 +27,7 @@ nav a {
 }
 
 /* Responsive image styling */
-img#welcome-image, img#sports-image{
+img#welcome-image, img#sports-image, img#super-admin-image{
     width: 100%;
     max-width: 100%; /* Adjust as needed based on your design */
     height: auto;
@@ -84,11 +84,18 @@ form {
 .card {
     width: 300px;
     margin: 10px;
-    padding: 20px;
+    padding: 10px;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     text-align: center;
+}
+
+.card .description {
+    max-height: 5em;
+    min-height: 5em;
+    overflow: auto;
+    white-space: normal; /* Allow text to wrap to the next line */
 }
 
 .card h3, .card p {
@@ -101,6 +108,19 @@ form {
     border-radius: 4px;
 }
 
+.favorite-button {
+	background-color: #3498db;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin : 5px;
+}
+
+.favorite-button:hover {
+    background-color: #2980b9;
+}
 
 
 

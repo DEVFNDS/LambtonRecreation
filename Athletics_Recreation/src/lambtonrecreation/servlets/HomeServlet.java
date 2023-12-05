@@ -17,8 +17,12 @@ public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/views/home.jsp");
-		dispatcher.forward(request, response);
+		if(request.getSession().getAttribute("roleName") != null && 
+			String.valueOf(request.getSession().getAttribute("roleName")).equalsIgnoreCase("admin")) {
+        	request.getRequestDispatcher("/views/admin/admin.jsp").forward(request, response);
+        } else {
+        	request.getRequestDispatcher("/views/home.jsp").forward(request, response);
+        }
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

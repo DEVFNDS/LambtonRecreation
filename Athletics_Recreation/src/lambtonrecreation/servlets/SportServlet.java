@@ -51,15 +51,20 @@ public class SportServlet extends HttpServlet {
 	}
 	
 	private void listAllSports(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("inside list all sports method");
-		List<Sport> sports = sportDao.getAllSports();
+        List<Sport> sports = sportDao.getAllSports();
         request.setAttribute("sports", sports);
-        request.getRequestDispatcher("/views/sport/sports.jsp").forward(request, response);
+        if(request.getSession().getAttribute("roleName") != null && 
+			String.valueOf(request.getSession().getAttribute("roleName")).equalsIgnoreCase("admin")) {
+        	request.getRequestDispatcher("/views/sport/admin/sports.jsp").forward(request, response);
+        } else {
+        	request.getRequestDispatcher("/views/sport/sports.jsp").forward(request, response);
+        }
 	}
 	
 	private void addSport(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        if(request.isUserInRole("admin")) {
-        	Sport sport = createSportFromRequest(request);
+		if(request.getSession().getAttribute("roleName") != null && 
+				String.valueOf(request.getSession().getAttribute("roleName")).equalsIgnoreCase("admin")) {
+			Sport sport = createSportFromRequest(request);
 
         	if(isValidSportData(sport)) {
         		try {
@@ -74,8 +79,7 @@ public class SportServlet extends HttpServlet {
         		// Data is invalid, handle the validation errors
                 // For simplicity, let's set an error message and forward to the form page
                 request.setAttribute("error", "Invalid sports data. Please check your input.");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("addSportForm.jsp");
-                dispatcher.forward(request, response);
+                response.sendRedirect(request.getContextPath() + "/sports");
         	}
             
         }else {
@@ -88,13 +92,14 @@ public class SportServlet extends HttpServlet {
     }
 	
 	private void editSportForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.isUserInRole("admin")) {
+		if(request.getSession().getAttribute("roleName") != null && 
+				String.valueOf(request.getSession().getAttribute("roleName")).equalsIgnoreCase("admin")) {
 			int sportId = Integer.parseInt(request.getParameter("id"));
 	        Sport sport = sportDao.getSportById(sportId);
 	
 	        if (sport != null) {
 	            request.setAttribute("sport", sport);
-	            request.getRequestDispatcher("/views/sport/edit_sport.jsp").forward(request, response);
+	            request.getRequestDispatcher("/views/sport/admin/edit_sport.jsp").forward(request, response);
 	        } else {
 	            // Handle the case where the sport is not found
 	            response.sendRedirect(request.getContextPath() + "/sports?error=sportNotFound");
@@ -106,7 +111,8 @@ public class SportServlet extends HttpServlet {
     }
 	
 	private void updateSport(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		if(request.isUserInRole("admin")) {
+		if(request.getSession().getAttribute("roleName") != null && 
+				String.valueOf(request.getSession().getAttribute("roleName")).equalsIgnoreCase("admin")) {
 			Sport sport = createSportFromRequest(request);
 	        sport.setId(Integer.parseInt(request.getParameter("id")));
 	
@@ -125,7 +131,8 @@ public class SportServlet extends HttpServlet {
     }
 	
 	private void deleteSport(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		if(request.isUserInRole("admin")) {
+		if(request.getSession().getAttribute("roleName") != null && 
+				String.valueOf(request.getSession().getAttribute("roleName")).equalsIgnoreCase("admin")) {
 			int sportId = Integer.parseInt(request.getParameter("id"));
 	
 	        try {
