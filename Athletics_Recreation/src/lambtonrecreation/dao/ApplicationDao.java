@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Base64.Decoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -106,7 +108,15 @@ public class ApplicationDao {
 			ResultSet resultSet = statement.executeQuery();
 			
 			if(resultSet.next()) {
-				if(resultSet.getString("password").equals(password)) {
+				
+				System.out.println("Encrypted Value :: " +resultSet.getString("password"));
+		        Decoder decoder = Base64.getDecoder();
+		        byte[] bytes = decoder.decode(resultSet.getString("password"));
+		        String decodedPassword = new String(bytes);
+		                 
+		        System.out.println("Decrypted Value :: " +decodedPassword);
+				
+				if(decodedPassword.equals(password)) {
 	                mapOfUserValAndRole.put("userExists", 1);
 	                mapOfUserValAndRole.put("userId", resultSet.getInt("id"));
 	                mapOfUserValAndRole.put("roleName", resultSet.getString("role"));

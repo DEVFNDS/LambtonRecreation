@@ -71,7 +71,12 @@ public class RegisterServlet extends HttpServlet {
 				System.out.println("email taken");
 				response.getWriter().write("emailTaken");
 			} else {
-				User user = new User(firstName, lastName, username, password, dob, gender, agreement, email, roleId);
+				
+				Encoder encoder = Base64.getEncoder();
+		        String encodedpassword = encoder.encodeToString(password.getBytes());		 
+		        System.out.println("Encrypted Value :: " +encodedpassword);
+				
+				User user = new User(firstName, lastName, username, encodedpassword, dob, gender, agreement, email, roleId);
 				
 				String registerMessage = null;
 							
