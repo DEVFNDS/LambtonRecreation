@@ -8,6 +8,9 @@ import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Base64;
+import java.util.Base64.Encoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,19 +31,15 @@ public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("in get of register");
+		
 		List<Role> roles = ApplicationDao.getRoles();
 		roles.add(0, ApplicationDao.selectRoleOption());
-		System.out.println("--nk roles : "+roles);
-        request.setAttribute("roles", roles);
+		request.setAttribute("roles", roles);
         request.getRequestDispatcher("/views/user/register.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("in post of register");
-
-		// take all the form data
-
+		
 		String username = request.getParameter("username");
 		String password =request.getParameter("password"); 
 		String firstName = request.getParameter("fname");
@@ -61,52 +60,38 @@ public class RegisterServlet extends HttpServlet {
 
         boolean agreement = "on".equals(agreementStr);
 		
-        int roleId = ApplicationDao.getRoleIdByName(role);
-		System.out.println("--nk 1 roleId : "+roleId);
-		/*StringBuilder errorMsg = new StringBuilder();
-
-        if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || email.isEmpty() || role.isEmpty()) {
-            errorMsg.append("All fields are required. ");
-        }
-
-        if (!password.equals(confirmPassword)) {
-            errorMsg.append("Passwords do not match. ");
-        }
-        
-         if (errorMsg.length() > 0) {
-            request.setAttribute("error", errorMsg.toString());
-            request.getRequestDispatcher("registration.jsp").forward(request, response);
-            return;
-        }
-        */
-		
-		User user = new User(firstName, lastName, username, password, dob, gender, agreement, email, roleId);
-		
-		String registerMessage = null;
+        int roleId = ApplicationDao.getRoleIdByName(role);		
+        Map<String, Boolean> uniqueChecksMap = ApplicationDao.usernameAlreadyExists(username, email);
 		int userSaved = 0;
 		
-		try {
-			userSaved = ApplicationDao.registerUser(user);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		if (userSaved == 1) {
-			registerMessage = "User registered successfully!";
-			System.out.println(registerMessage);
-			response.getWriter().write("success");
-			//response.sendRedirect("jsps/Login.jsp");
+		if(!uniqueChecksMap.containsKey("exception")) {
+			if(uniqueChecksMap.get("userPresent")) {
+				response.getWriter().write("usernameTaken");
+			} else if(uniqueChecksMap.get("email")){
+				System.out.println("email taken");
+				response.getWriter().write("emailTaken");
+			} else {
+				User user = new User(firstName, lastName, username, password, dob, gender, agreement, email, roleId);
+				
+				String registerMessage = null;
+							
+				try {
+					userSaved = ApplicationDao.registerUser(user);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+				if (userSaved == 1) {
+					response.getWriter().write("success");
 
-		} else {
-			/*registerMessage = "Sorry! Some error occurred!";
-			System.out.println(registerMessage);
-			request.setAttribute("error", "Registration failed. Please try again.");*/
-            request.getRequestDispatcher("/views/user/register.jsp").forward(request, response);
+				} else {
+					response.getWriter().write("DB error");
+				}
+			}				
 		}
-
-		//response.getWriter().write(registerMessage);
-		
-		/*String page = getHTMLString(request.getServletContext().getRealPath("/jsps/Register.jsp"), registerMessage);
-		response.getWriter().write(page);*/
+		else {
+			response.getWriter().write("Exception occurred while username and email validation.");
+		}
 	}
 	
 	public String getHTMLString(String filePath, String message) throws IOException{
