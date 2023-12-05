@@ -45,8 +45,10 @@
       </ul>
       <ul class="box input-box">
         <li class="link_name">Subscribe</li>
-        <li><input type="text" placeholder="Enter your email" /></li>
-        <li><input type="button" value="Subscribe" /></li>
+        <form action="SendEmailServlet" method="post">
+        	<li><input type="email" name="email" placeholder="Enter your email" /></li>
+        	<li><input type="submit" value="Submit"  /></li>
+        </form>
       </ul>
     </div>
   </div>
