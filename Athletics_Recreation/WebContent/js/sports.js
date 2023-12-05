@@ -7,10 +7,10 @@ function registerUserSport(sportId, userId) {
             userId: userId
         },
         success: function(response) {
-            console.log(response);
+            alert(response);
         },
         error: function(error) {
-            console.error(error);
+        	alert(error);
         }
     });
 }
