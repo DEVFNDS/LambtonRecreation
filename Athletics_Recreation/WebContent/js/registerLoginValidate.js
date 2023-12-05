@@ -2,6 +2,10 @@
  * 
  */
 
+const specialCharsRegExp = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?~]/;
+const digitRegExp = /[0-9]/;
+const charRegExp = /[a-zA-z]/;
+
 $(document).ready(function () {
     $("#registrationForm").submit(function (event) {
         event.preventDefault();
@@ -13,9 +17,25 @@ $(document).ready(function () {
         validateLoginForm();
     });
     
-    $("#resetButton").click(function () {
-        $("#loginForm")[0].reset();
+    $("#resetButtonRegister").click(function () {
+        $("#registrationForm")[0].reset();
         $("#serverError").text("");
+        $("#fnameError").text("");
+        $("#lnameError").text("");
+        $("#emailError").text("");
+        $("#dobError").text("");
+        $("#genderError").text("");
+        $("#roleError").text("");
+        $("#usernameError").text("");
+        $("#passwordError").text("");
+        $("#confirmPasswordError").text("");
+        $("#agreementError").text("");
+    });
+    
+    $("#resetButton").click(function (){
+    	$("#loginForm")[0].reset();
+    	$("#usernameError").text("");
+        $("#passwordError").text("");
     });
 });
 
@@ -53,43 +73,98 @@ function validateLoginForm(){
 	 }
 }
 
+
 function validateFirstname() {
-    // Validation logic for username
-    var username = $("#fname").val();
-    if (username.trim() === "") {
-        $("#fnameError").text("First Name is required.");
+    var fname = $("#fname").val().trim();
+    if (fname === "") {
+        $("#fnameError").text("First Name is required");
         return false;
     }
+    
+    if(fname.length <3 ){
+    	$("#fnameError").text("Minimum 3 characters required");
+        return false;
+    }
+    
+    if(fname.length > 50 ){
+    	$("#fnameError").text("Maximum 50 characters allowed");
+        return false;
+    }
+    
+    if(specialCharsRegExp.test(fname) || digitRegExp.test(fname)){
+    	$("#fnameError").text("No special character or digits allowed except dot (.)");
+        return false;
+    }
+    
     return true;
 }
 
+
 function validateLastname() {
-    // Validation logic for username
-    var username = $("#lname").val();
-    if (username.trim() === "") {
+    var lname = $("#lname").val().trim();
+    if (lname === "") {
         $("#lnameError").text("Last Name is required.");
         return false;
     }
+    
+    if(lname.length <3 ){
+    	$("#lnameError").text("Minimum 3 characters required");
+        return false;
+    }
+    
+    if(lname.length > 50 ){
+    	$("#lnameError").text("Maximum 50 characters allowed");
+        return false;
+    }
+    
+    if(specialCharsRegExp.test(lname) || digitRegExp.test(lname)){
+    	$("#lnameError").text("No special character or digits allowed except dot (.)");
+        return false;
+    }
     return true;
 }
 
+
 function validateUsername() {
-    // Validation logic for username
-    var username = $("#username").val();
-    if (username.trim() === "") {
+    var username = $("#username").val().trim();
+    if (username === "") {
         $("#usernameError").text("Username is required.");
         return false;
     }
+    
+    if(username.length <10 ){
+    	$("#usernameError").text("Minimum 10 characters required");
+        return false;
+    }
+    
+    if(username.length > 50 ){
+    	$("#usernameError").text("Maximum 50 characters allowed");
+        return false;
+    }
+       
     return true;
 }
 
+
+
 function validatePassword() {
     // Validation logic for password
-    var password = $("#password").val();
-    if (password.trim() === "") {
-        $("#passwordError").text("Password is required.");
+    var password = $("#password").val().trim();
+    if (password === "") {
+        $("#passwordError").text("Password is required");
         return false;
     }
+    
+    if(password.length < 10 || password.length > 50){
+    	$("#passwordError").text("Minimum 10 and maximum 50 characters allowed");
+        return false;
+    }
+    
+    if(!specialCharsRegExp.test(password) || !digitRegExp.test(password)){
+    	$("#passwordError").text("Password must include symbols, digits, capital & small letters");
+    	return false;
+    }
+    
     return true;
 }
 
@@ -115,7 +190,7 @@ function validateEmail() {
         $("#emailError").text("Email is required.");
         return false;
     } else if (!emailPattern.test(email)) {
-        $("#emailError").text("Invalid email address.");
+        $("#emailError").text("Invalid email address format.");
         return false;
     }
     return true;
@@ -170,11 +245,27 @@ function submitRegistrationForm() {
         data: formData,
         success: function (response) {
         	console.log("--nk inside response "+response);
+        	
             if (response === "success") {
+            	
             	console.log("--nk inside success response");
             	alert("Registration successful! Please proceed to login.");
                 window.location.href = "login";
-            } else {
+                
+            } else if(response == 'usernameTaken'){
+            	$("#serverError").text("Review all errors in form.");
+            	$("#usernameError").text("This username is already taken");
+            	
+            }else if(response == "emailTaken"){
+            	$("#serverError").text("Review all errors in form.");
+            	$("#emailError").text("This email is already taken");
+            	
+            }else if(response == 'DB error'){
+            	
+            	$("#serverError").text("Some DB Error occurred. Cannot be saved. Please contact Admin.");
+            	
+            }else {
+            	
                 $("#serverError").text(response);
             }
         },

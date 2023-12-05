@@ -33,7 +33,7 @@
             <div class="col-md-8">
                 <div id="registration-box">
                     <h2>User Registration Form</h2>
-                    <form id="registrationForm" action="../register" method="post" class="needs-validation" novalidate>
+                    <form id="registrationForm" class="needs-validation" novalidate>
 			        <!-- server-side error message here -->
 			        <div id="serverError" style="color: red;"></div>
 
@@ -49,7 +49,7 @@
                                 <input type="text" name="lname" id="lname" class="form-control" required>
                                 <div id="lnameError" class="error"></div>
                             </div>
-                        </div>
+                        </div><br/>
 
                         <div class="mb-3">
                             <label for="email" class="form-label">Email:</label>
@@ -103,7 +103,6 @@
                             <input type="password" name="confirmPassword" id="confirmPassword" class="form-control">
                             <div id="confirmPasswordError" class="error"></div>
                         </div>
-
                         <div class="mb-3">
                             <input type="checkbox" name="agreement" id="agreement" class="form-check-input shadow" required>
                             <label for="agreement" class="form-check-label">I agree to the terms and conditions</label>
@@ -112,7 +111,7 @@
 
                         <div class="mb-3">
                             <input type="submit" value="Register" class="btn btn-primary">
-                            <input type="reset" value="Clear Form" class="btn btn-secondary">
+                            <input type="reset" id="resetButtonRegister" value="Clear Form" class="btn btn-secondary">
                         </div>
                     </form>
                 </div>
