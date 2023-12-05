@@ -27,11 +27,32 @@ nav a {
 }
 
 /* Responsive image styling */
-img#welcome-image {
+img#welcome-image, img#sports-image{
     width: 100%;
     max-width: 100%; /* Adjust as needed based on your design */
     height: auto;
 }
+
+img#sports-image{
+	position: relative;
+}
+
+.overlay-button {
+    position: absolute;
+    top: 220%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.sports-cards-div {
+	margin-top: 4%;
+}
+
 
 table {
     border-collapse: collapse;
@@ -68,6 +89,10 @@ form {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     text-align: center;
+}
+
+.card h3, .card p {
+	margin : 5px;
 }
 
 .card img {
