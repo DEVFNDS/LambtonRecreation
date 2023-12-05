@@ -46,6 +46,11 @@ public class LoginServlet extends HttpServlet {
 					if(mapOfUserValAndRole.containsKey("roleName")) {
 						session.setAttribute("roleName", (String) mapOfUserValAndRole.get("roleName"));
 					}
+					
+					if(mapOfUserValAndRole.containsKey("userId")) {
+						session.setAttribute("userId", (int) mapOfUserValAndRole.get("userId"));
+					}
+					
 					System.out.println("Fine Sev");
 					response.getWriter().write("success");	
 					break;

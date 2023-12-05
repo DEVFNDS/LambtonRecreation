@@ -52,7 +52,7 @@ public class ApplicationDao {
 			Connection connection = DBConnection.getConnection();
 			PreparedStatement statement;
 		
-			String sqlQuery = "SELECT u.username, u.password, r.role " +
+			String sqlQuery = "SELECT u.id, u.username, u.password, r.role " +
                     "FROM user u " +
                     "INNER JOIN user_role r ON u.role = r.id " +
                     "WHERE u.username = ?";
@@ -66,6 +66,7 @@ public class ApplicationDao {
 				System.out.println("Inside if DAo");
 				if(resultSet.getString("password").equals(password)) {
 	                mapOfUserValAndRole.put("userExists", 1);
+	                mapOfUserValAndRole.put("userId", resultSet.getInt("id"));
 	                mapOfUserValAndRole.put("roleName", resultSet.getString("role"));
 	                System.out.println("Everything fine Dao");
 	             }else {
@@ -86,6 +87,8 @@ public class ApplicationDao {
 		return mapOfUserValAndRole;
 
 	}
+	
+	
 	
 	/*---------Role methods----------------------*/
 	
