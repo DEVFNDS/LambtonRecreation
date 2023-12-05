@@ -7,7 +7,7 @@
 <nav>
     <a href="home">Home</a>
     <a href="#sportsSection">Sports</a>
-    <a href="#eventsSection">Events</a>
+    <a href="viewevent">Events</a>
     
     <% if (username != null){ %>
      	<a href="views/user/userinfo.jsp"><p style="color: pink; margin: 0;"><%= username %> | <%= roleName %></p></a>
