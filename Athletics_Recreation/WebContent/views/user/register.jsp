@@ -111,7 +111,7 @@
 
                         <div class="mb-3">
                             <input type="submit" value="Register" class="btn btn-primary">
-                            <input type="reset" value="Clear Form" class="btn btn-secondary">
+                            <input type="reset" id="resetButtonRegister" value="Clear Form" class="btn btn-secondary">
                         </div>
                     </form>
                 </div>

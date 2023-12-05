@@ -4,6 +4,7 @@
 
 const specialCharsRegExp = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?~]/;
 const digitRegExp = /[0-9]/;
+const charRegExp = /[a-zA-z]/;
 
 $(document).ready(function () {
     $("#registrationForm").submit(function (event) {
@@ -16,9 +17,25 @@ $(document).ready(function () {
         validateLoginForm();
     });
     
-    $("#resetButton").click(function () {
-        $("#loginForm")[0].reset();
+    $("#resetButtonRegister").click(function () {
+        $("#registrationForm")[0].reset();
         $("#serverError").text("");
+        $("#fnameError").text("");
+        $("#lnameError").text("");
+        $("#emailError").text("");
+        $("#dobError").text("");
+        $("#genderError").text("");
+        $("#roleError").text("");
+        $("#usernameError").text("");
+        $("#passwordError").text("");
+        $("#confirmPasswordError").text("");
+        $("#agreementError").text("");
+    });
+    
+    $("#resetButton").click(function (){
+    	$("#loginForm")[0].reset();
+    	$("#usernameError").text("");
+        $("#passwordError").text("");
     });
 });
 
@@ -132,11 +149,22 @@ function validateUsername() {
 
 function validatePassword() {
     // Validation logic for password
-    var password = $("#password").val();
-    if (password.trim() === "") {
-        $("#passwordError").text("Password is required.");
+    var password = $("#password").val().trim();
+    if (password === "") {
+        $("#passwordError").text("Password is required");
         return false;
     }
+    
+    if(password.length < 10 || password.length > 50){
+    	$("#passwordError").text("Minimum 10 and maximum 50 characters allowed");
+        return false;
+    }
+    
+    if(!specialCharsRegExp.test(password) || !digitRegExp.test(password)){
+    	$("#passwordError").text("Password must include symbols, digits, capital & small letters");
+    	return false;
+    }
+    
     return true;
 }
 
@@ -162,7 +190,7 @@ function validateEmail() {
         $("#emailError").text("Email is required.");
         return false;
     } else if (!emailPattern.test(email)) {
-        $("#emailError").text("Invalid email address.");
+        $("#emailError").text("Invalid email address format.");
         return false;
     }
     return true;
@@ -225,11 +253,11 @@ function submitRegistrationForm() {
                 window.location.href = "login";
                 
             } else if(response == 'usernameTaken'){
-            	
+            	$("#serverError").text("Review all errors in form.");
             	$("#usernameError").text("This username is already taken");
             	
             }else if(response == "emailTaken"){
-            	
+            	$("#serverError").text("Review all errors in form.");
             	$("#emailError").text("This email is already taken");
             	
             }else if(response == 'DB error'){
