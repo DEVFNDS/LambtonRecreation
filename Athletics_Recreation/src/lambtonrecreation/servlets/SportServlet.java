@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import lambtonrecreation.dao.SportDao;
 import lambtonrecreation.model.Sport;
+import lambtonrecreation.util.ValidationUtils;
 
 /**
  * Servlet implementation class SportServlet
@@ -23,16 +25,14 @@ public class SportServlet extends HttpServlet {
 	private final SportDao sportDao = new SportDao();   
     	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Inside get method of sports servlet");
 		String action = request.getParameter("action");
-		System.out.println("Action :"+action);
-        if ("edit".equals(action)) {
+		
+		if ("edit".equals(action)) {
             editSportForm(request, response);
         } else if ("delete".equals(action)) {
             deleteSport(request, response);
         } else {
             // Default action: List all sports
-        	System.out.println("inside else part");
             listAllSports(request, response);
         }
 	}
@@ -57,18 +57,27 @@ public class SportServlet extends HttpServlet {
         request.getRequestDispatcher("/views/sport/sports.jsp").forward(request, response);
 	}
 	
-	private void addSport(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	private void addSport(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         if(request.isUserInRole("admin")) {
         	Sport sport = createSportFromRequest(request);
 
-            try {
-                sportDao.createSport(sport);
-                response.sendRedirect(request.getContextPath() + "/sports");
-            } catch (SQLException e) {
-                e.printStackTrace();
-                // Handle the exception appropriately, e.g., display an error message
-                response.sendRedirect(request.getContextPath() + "/sports?error=failedToAddSport");
-            }
+        	if(isValidSportData(sport)) {
+        		try {
+					sportDao.createSport(sport);
+					response.sendRedirect(request.getContextPath() + "/sports");
+				} catch (SQLException e) {
+					e.printStackTrace();
+					// Handle the exception appropriately, e.g., display an error message
+	                response.sendRedirect(request.getContextPath() + "/sports?error=failedToAddSport");
+				}
+        	} else {
+        		// Data is invalid, handle the validation errors
+                // For simplicity, let's set an error message and forward to the form page
+                request.setAttribute("error", "Invalid sports data. Please check your input.");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("addSportForm.jsp");
+                dispatcher.forward(request, response);
+        	}
+            
         }else {
             // User does not have the "admin" role, redirect or display an error message
             response.sendRedirect(request.getContextPath() + "/sports?error=permissionDenied");
@@ -140,6 +149,31 @@ public class SportServlet extends HttpServlet {
         sport.setRules(request.getParameter("rules"));
         sport.setEquipmentNeeded(request.getParameter("equipmentNeeded"));
         return sport;
+    }
+	
+	// Perform validation checks
+    private boolean isValidSportData(Sport sport) {
+        boolean isValid = true;
+        if(ValidationUtils.isNullOrEmpty(sport.getName())) {
+        	isValid = false;
+        } else {
+        	if(!ValidationUtils.isWithinLengthLimit(sport.getName(), 50)) {
+        		isValid = false;
+        	}
+        }
+        if(!ValidationUtils.isNullOrEmpty(sport.getDescription()) && 
+        		!ValidationUtils.isWithinLengthLimit(sport.getDescription(), 150)) {
+        	isValid = false;
+        }
+        if(!ValidationUtils.isNullOrEmpty(sport.getRules()) && 
+        		!ValidationUtils.isWithinLengthLimit(sport.getRules(), 100)) {
+        	isValid = false;
+        }
+        if(!ValidationUtils.isNullOrEmpty(sport.getEquipmentNeeded()) && 
+        		!ValidationUtils.isWithinLengthLimit(sport.getEquipmentNeeded(), 100)) {
+        	isValid = false;
+        }
+        return isValid;
     }
 
 }

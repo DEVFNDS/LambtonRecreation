@@ -22,6 +22,7 @@ public class SportDao {
 	private static final String SELECT_BY_ID_SQL = "SELECT * FROM sports WHERE id = ?";
     private static final String UPDATE_SQL = "UPDATE sports SET name = ?, description = ?, rules = ?, equipment_needed = ? WHERE id = ?";
     private static final String DELETE_SQL = "DELETE FROM sports WHERE id = ?";
+    private static final String INSERT_USER_SPORT_RLN = "INSERT INTO user_sports_rln (user_id, sport_id) VALUES (?, ?)";
 
 	//Instance variable for the connection
 	private final Connection connection;
@@ -139,6 +140,22 @@ public class SportDao {
         preparedStatement.setString(2, sport.getDescription());
         preparedStatement.setString(3, sport.getRules());
         preparedStatement.setString(4, sport.getEquipmentNeeded());
+    }
+	
+	/* @MethodDescription :: To Save user-sport relationship to the database */
+    public boolean saveUserSportRelation(String userId, String sportId) {
+    	try {
+			preparedStatement = connection.prepareStatement(INSERT_USER_SPORT_RLN);
+			preparedStatement.setString(1, userId);
+            preparedStatement.setString(2, sportId);
+            
+            int rowsAffected = preparedStatement.executeUpdate();
+			
+            return rowsAffected > 0;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			 return false;
+		}
     }
 
 }
