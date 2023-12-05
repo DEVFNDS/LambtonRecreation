@@ -7,7 +7,7 @@
 <nav>
     <a href="home">Home</a>
     <a href="#sportsSection">Sports</a>
-    <a href="#eventsSection">Events</a>
+    <a href="viewevent">Events</a>
     <a href="#newsSection">News/Articles</a>
     
     <% if (username != null){ %>

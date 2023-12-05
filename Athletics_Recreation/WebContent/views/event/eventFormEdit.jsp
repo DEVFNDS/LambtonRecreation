@@ -1,6 +1,5 @@
 <!-- Group-4 Term Project -->
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,51 +20,66 @@
 <%@ page import="java.util.List" %>
 <%@ page import="lambtonrecreation.model.Sport" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="lambtonrecreation.model.Event" %>
 <%@ page import="lambtonrecreation.dao.SportDao" %>
-
-
+<%@ page import="lambtonrecreation.dao.EventDao" %>
 
 <%
-	 final SportDao sportDao = new SportDao(); 
-    List<Sport> sports = sportDao.getAllSports();
+	final SportDao sportDao = new SportDao();
+    List<Sport> sports = sportDao.getAllSports() ;
+	Event event = EventDao.getEventById(request.getParameter("id"));
     if (sports == null) {
         sports = new ArrayList<>();
     }
     request.setAttribute("sports", sports);
+    request.setAttribute("event", event);
 %>
 
-<form id="eventFormId" action="insertevent" method="post" onsubmit="return validateForm()" novalidate>
+
+<form action="EditEventServletUpdate" method="post" onsubmit="return validateForm()" novalidate>
+    
+    <input type="hidden" name="id" value="${event.id}" >
+    
     <label for="name">Event Name:</label>
-    <input type="text" id="name" name="name" required>
+    <input type="text" id="name" name="name" value="${event.name}" required>
     <div id="name-error" class="error-message"></div>
 
-     <label for="sport_id">Sport</label>
+      <label for="sport_id">Sport</label>
 	 
 	 <select name="sport_id" id="sport_id">
-            <% for (Sport sport : sports) { %>
+    <% 
+        
+        for (Sport sport : sports) {
+            if (sport.getId() == event.getSportId()) {
+    %>
+                <option value="<%= sport.getId() %>" selected><%= sport.getName() %></option>
+    <%
+            } else {
+    %>
                 <option value="<%= sport.getId() %>"><%= sport.getName() %></option>
-            <% } %>
-        </select>
+    <%
+            }
+        }
+    %>
+</select>
 	 
-    <div id="sport_id-error" class="error-message"></div>
-
     <label for="date_time">Date and Time:</label>
-    <input type="datetime-local" id="date_time" name="date_time" required>
+    <input type="datetime-local" id="date_time" name="date_time" value="${event.dateTime}" required>
     <div id="date_time-error" class="error-message"></div>
 
     <label for="location">Location:</label>
-    <input type="text" id="location" name="location" required>
+    <input type="text" id="location" name="location" value="${event.location}" required>
     <div id="location-error" class="error-message"></div>
 
     <label for="description">Description:</label>
-    <textarea id="description" name="description" rows="4" cols="50" required></textarea>
+    <textarea id="description" name="description" rows="4" cols="50" required>${event.description} </textarea>
     <div id="description-error" class="error-message"></div>
 
-    <label for="registration_deadline">Registration Deadline:</label>
-    <input type="datetime-local" id="registration_deadline" name="registration_deadline" required>
+     <label for="registration_deadline">Registration Deadline:</label>
+    <input type="datetime-local" id="registration_deadline" name="registration_deadline" value="${event.registrationDeadline}"  required>
     <div id="registration_deadline-error" class="error-message"></div>
-
-    <input type="submit" value="Submit">
+    
+     <input type="submit" value="Submit">
 </form>
 
 <script>
@@ -130,27 +144,11 @@
             showError("registration_deadline", "Invalid date and time format.");
             return false;
         }
-       
-        submitForm();
-        // If all validations pass, return true to submit the form
-        return false;
-    }
-	
-    function submitForm() {
-        // Perform any additional actions before form submission (if needed)
 
-        // Submit the form
-        document.getElementById("eventFormId").submit();
-        
-        // After successful submission, clear the form fields
-        clearForm();
+        // If all validations pass, return true to submit the form
+        return true;
     }
-    
-    function clearForm() {
-    	
-        document.getElementById("eventFormId").reset(); // Replace "formId" with the actual ID of your form
-    }
-    
+
     function isValidDate(value) {
         var regex = /^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-\d{4}$/;
         return regex.test(value);
