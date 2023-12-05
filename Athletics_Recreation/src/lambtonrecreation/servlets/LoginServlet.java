@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import java.util.Base64;
+import java.util.Base64.Encoder;
+
 import lambtonrecreation.dao.ApplicationDao;
 
 /**
@@ -36,7 +39,6 @@ public class LoginServlet extends HttpServlet {
 		request.getSession().setAttribute("userName", username);
 		
 		Map<String, Object> mapOfUserValAndRole = ApplicationDao.validateUser(username, password);
-		if(mapOfUserValAndRole.size() > 0 && mapOfUserValAndRole.containsKey("userExists")) {
 			int userExists = (int) mapOfUserValAndRole.get("userExists");
 			
 			switch(userExists) {
@@ -46,25 +48,25 @@ public class LoginServlet extends HttpServlet {
 					if(mapOfUserValAndRole.containsKey("roleName")) {
 						session.setAttribute("roleName", (String) mapOfUserValAndRole.get("roleName"));
 					}
-					System.out.println("Fine Sev");
+					
+					if(mapOfUserValAndRole.containsKey("userId")) {
+						session.setAttribute("userId", (int) mapOfUserValAndRole.get("userId"));
+					}
+					
 					response.getWriter().write("success");	
 					break;
 				
 				case 0:
-					System.out.println("Wrong password Ser");
 					response.getWriter().write("Wrong password. Try again.");
 					break;
 					
 				case -1:
-					System.out.println("Wrong user Ser");
 					response.getWriter().write("Username doesn't exist.");
 					break;
 					
 				default:
-					System.out.println("Some Db Ser "+ userExists);
-					response.getWriter().write("Some DB error occurred while validating.");
+					response.getWriter().write("Some DB error occurred while validating. Please contact Admin.");
 					break;
 			}
-		}
 	}
 }
