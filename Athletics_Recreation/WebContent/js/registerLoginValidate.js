@@ -34,6 +34,7 @@ $(document).ready(function () {
     
     $("#resetButton").click(function (){
     	$("#loginForm")[0].reset();
+    	$("#serverError").text("");
     	$("#usernameError").text("");
         $("#passwordError").text("");
     });
@@ -65,14 +66,34 @@ function validateLoginForm(){
 	 $(".error").text("");
 	 var isValid = true;
 	 
-	 isValid = validateUsername() && isValid;
-	 isValid = validatePassword() && isValid;
-	 
+	 isValid = validateloginUsername() && isValid;
+	 isValid = validateloginPassword() && isValid;
+	 console.log("abc: "+isValid);
 	 if (isValid) {
+		 console.log("xyz");
 	     submitLoginForm();
 	 }
 }
 
+function validateloginUsername() {
+    var username = $("#username").val().trim();
+    if (username === "") {
+    	console.log("qwer");
+        $("#usernameError").text("Username is required.");
+        return false;
+    }
+    return true;
+}
+
+function validateloginPassword() {
+    var password = $("#password").val().trim();
+    if (password === "") {
+    	console.log("poiu");
+        $("#passwordError").text("Password is required.");
+        return false;
+    }
+    return true;
+}
 
 function validateFirstname() {
     var fname = $("#fname").val().trim();
@@ -132,8 +153,8 @@ function validateUsername() {
         return false;
     }
     
-    if(username.length <10 ){
-    	$("#usernameError").text("Minimum 10 characters required");
+    if(username.length <5 ){
+    	$("#usernameError").text("Minimum 5 characters required");
         return false;
     }
     
@@ -155,8 +176,8 @@ function validatePassword() {
         return false;
     }
     
-    if(password.length < 10 || password.length > 50){
-    	$("#passwordError").text("Minimum 10 and maximum 50 characters allowed");
+    if(password.length < 8 || password.length > 50){
+    	$("#passwordError").text("Minimum 8 and maximum 50 characters allowed");
         return false;
     }
     
@@ -276,13 +297,13 @@ function submitRegistrationForm() {
 }
 
 function submitLoginForm(){
+	console.log("inside submitLogin");
 	var formData = $("#loginForm").serialize();
     $.ajax({
         type: "POST",
         url: "login",
         data: formData,
         success: function (response) {
-        	console.log("--nk inside response "+response);
             if (response === "success") {
                 window.location.href = "home";      
             }
