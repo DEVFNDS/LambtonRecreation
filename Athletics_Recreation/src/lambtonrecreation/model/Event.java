@@ -62,5 +62,13 @@ public class Event {
 	public void setSportName(String sportName) {
 		this.sportName = sportName;
 	}
+	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Event event = (Event) obj;
+        return id == event.id;
+    }
 		
 }

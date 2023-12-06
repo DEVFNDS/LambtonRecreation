@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="css/footer.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script type="text/javascript" src="js/registerLoginValidate.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 </head>
 
 <body class="my-login-style"> <!-- Change class to my-login-style -->
@@ -51,7 +52,12 @@
                                     <div id="passwordError" class="error"></div>
                                 </div>
                             </div>
-
+							
+							<div id="spinnerID" class="z-3 text-center">
+  								<div class="spinner-border" role="status">
+    								<span class="sr-only"></span>
+  								</div>
+  							</div><br/>
                             <button type="submit" class="btn btn-primary">Login</button>
                             <button type="button" id="resetButton" class="btn btn-secondary">Reset</button>
 

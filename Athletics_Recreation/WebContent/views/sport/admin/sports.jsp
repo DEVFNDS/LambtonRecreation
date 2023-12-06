@@ -17,7 +17,11 @@
 <%@ include file="../../header.jsp" %>
 
 <div class="sports-cards-div">
-	<h2>Sports List</h2>
+	<h2 class="sports-list-header">
+	    Sports List 
+	    <a href="<%= request.getContextPath() %>/sports?action=addForm"><button id="add-sport-btn">Add Sport</button></a>
+	</h2>
+	
 	<%
 	    List<Sport> sports = (List<Sport>) request.getAttribute("sports");
 	    if (sports == null) {
@@ -25,7 +29,7 @@
 	    }
 	%>
 
-	<table border="1">
+	<table id="sports-table" border="1">
 	    <tr>
 	        <th>ID</th>
 	        <th>Name</th>
@@ -49,16 +53,7 @@
 	            </td>
 	        </tr>
 	    <% } %>
-	</table>
-	
-	<h2>Add Sport</h2>
-	<form action="<%= request.getContextPath() %>/sports?action=add" method="post">
-	    Name: <input type="text" name="name" required><br>
-	    Description: <input type="text" name="description"><br>
-	    Rules: <input type="text" name="rules"><br>
-	    Equipment Needed: <input type="text" name="equipmentNeeded"><br>
-	    <input type="submit" value="Add Sport">
-	</form>
+	</table><br>
 
 </div>
 </body>
