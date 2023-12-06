@@ -157,5 +157,21 @@ public class SportDao {
 			 return false;
 		}
     }
+    
+    /* @MethodDescription :: To check if user selects this sport as favourite sport */
+    public boolean isSportFavouriteForUser(int sportId, int userId) {
+        try {
+            String query = "SELECT 1 FROM user_sports_rln WHERE sport_id = ? AND user_id = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, sportId);
+            preparedStatement.setInt(2, userId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return resultSet.next();  // If there is a row, it means it's a favorite for the user
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 }

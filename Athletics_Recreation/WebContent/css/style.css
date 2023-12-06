@@ -53,7 +53,30 @@ img#sports-image{
 	margin-top: 4%;
 }
 
+.sports-cards-div h2{
+	margin: 5px;
+}
 
+.sports-list-header {
+	display: flex; 
+	justify-content: space-between; 
+	align-items: center;
+}
+
+#sports-table{
+	margin: 5px;
+	width: 99%;
+}
+
+#add-sport-btn {
+	background-color: #4caf50;
+    color: #fff;
+    cursor: pointer;
+    margin: 5px;
+    padding: 5px;
+    border: none;
+}
+   
 table {
     border-collapse: collapse;
     width: 100%;
@@ -120,6 +143,11 @@ form {
 
 .favorite-button:hover {
     background-color: #2980b9;
+}
+
+.favorite-button.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 

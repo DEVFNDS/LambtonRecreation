@@ -9,7 +9,7 @@
 
 <nav>
     <a href="home">Home</a>
-    <a href="#sportsSection">Sports</a>
+    <a href="sports">Sports</a>
     <a href="viewevent">Events</a>
     
     <% if (username != null){ %>
