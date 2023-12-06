@@ -27,7 +27,7 @@ nav a {
 }
 
 /* Responsive image styling */
-img#welcome-image, img#sports-image{
+img#welcome-image, img#sports-image, img#super-admin-image{
     width: 100%;
     max-width: 100%; /* Adjust as needed based on your design */
     height: auto;
@@ -53,7 +53,30 @@ img#sports-image{
 	margin-top: 4%;
 }
 
+.sports-cards-div h2{
+	margin: 5px;
+}
 
+.sports-list-header {
+	display: flex; 
+	justify-content: space-between; 
+	align-items: center;
+}
+
+#sports-table{
+	margin: 5px;
+	width: 99%;
+}
+
+#add-sport-btn {
+	background-color: #4caf50;
+    color: #fff;
+    cursor: pointer;
+    margin: 5px;
+    padding: 5px;
+    border: none;
+}
+   
 table {
     border-collapse: collapse;
     width: 100%;
@@ -84,11 +107,18 @@ form {
 .card {
     width: 300px;
     margin: 10px;
-    padding: 20px;
+    padding: 10px;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     text-align: center;
+}
+
+.card .description {
+    max-height: 5em;
+    min-height: 5em;
+    overflow: auto;
+    white-space: normal; /* Allow text to wrap to the next line */
 }
 
 .card h3, .card p {
@@ -101,6 +131,24 @@ form {
     border-radius: 4px;
 }
 
+.favorite-button {
+	background-color: #3498db;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin : 5px;
+}
+
+.favorite-button:hover {
+    background-color: #2980b9;
+}
+
+.favorite-button.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 
 
 
