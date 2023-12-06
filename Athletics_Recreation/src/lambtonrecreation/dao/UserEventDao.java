@@ -101,6 +101,7 @@ public class UserEventDao {
 				ResultSet rs=ps.executeQuery();
 				while(rs.next()){
 					Event event = new Event();
+					System.out.println("rs.getInt(2)"+ rs.getInt(2));
 					event =EventDao.getEventById(String.valueOf(rs.getInt(2)));
 					eventList.add(event);
 				}

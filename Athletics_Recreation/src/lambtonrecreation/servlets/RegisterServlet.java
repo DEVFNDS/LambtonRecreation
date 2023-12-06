@@ -22,9 +22,14 @@ import lambtonrecreation.dao.ApplicationDao;
 import lambtonrecreation.model.Role;
 import lambtonrecreation.model.User;
 
+
 /**
- * Servlet implementation class RegisterServlet
+ * @author Nikita_Kapoor
+ * 
+ * Implement the Registration functionality
+ * requests and responses are handles via AJAX calls
  */
+
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
 
@@ -38,6 +43,7 @@ public class RegisterServlet extends HttpServlet {
         request.getRequestDispatcher("/views/user/register.jsp").forward(request, response);
 	}
 
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String username = request.getParameter("username");
@@ -99,16 +105,4 @@ public class RegisterServlet extends HttpServlet {
 		}
 	}
 	
-	public String getHTMLString(String filePath, String message) throws IOException{
-		BufferedReader reader = new BufferedReader(new FileReader(filePath));
-		String line="";
-		StringBuffer buffer = new StringBuffer();
-		while((line=reader.readLine())!=null){
-			buffer.append(line);
-		}
-		reader.close();
-		String page = buffer.toString();
-		page = MessageFormat.format(page, message);
-		return page;
-	}
 }

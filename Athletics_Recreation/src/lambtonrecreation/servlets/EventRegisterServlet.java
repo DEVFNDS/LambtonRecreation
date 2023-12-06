@@ -36,6 +36,16 @@ public class EventRegisterServlet extends HttpServlet {
 			String username = String.valueOf(request.getSession().getAttribute("username")) ;
 			System.out.println("username "+ username);
 			
+			
+			if(request.getSession().getAttribute("roleName") != null && 
+					 String.valueOf(request.getSession().getAttribute("roleName")).equalsIgnoreCase("admin")) {
+				 System.out.println("entereddddd-----");
+				 request.setAttribute("show", true);
+			 }else {
+				 System.out.println("entereddddd");
+				 request.setAttribute("show", false);
+			 }
+		
 			if(username != null) {
 				int event_id = Integer.valueOf(request.getParameter("id"));
 				int status = UserEventDao.userEventSave(username, event_id);

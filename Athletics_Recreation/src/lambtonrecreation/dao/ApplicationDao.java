@@ -16,7 +16,21 @@ import lambtonrecreation.util.DBConnection;
 import lambtonrecreation.model.Role;
 import lambtonrecreation.model.User;
 
+/**
+ * @author Nikita_Kapoor
+ * 
+ * Contains methods for operations and business login on User and Role beans
+ * Interact with database to fetch or insert data
+ * */
+
 public class ApplicationDao {
+	
+	/*-----------------------------------User methods--------------------------------*/
+	
+	/*
+	 * Method to insert a user in database when a user registers. 
+	 * Receives User object to be inserted
+	 * */
 	
 	public static int registerUser(User user) throws SQLException {
 		int rowsAffected = 0;
@@ -43,6 +57,13 @@ public class ApplicationDao {
 		return rowsAffected;
 	}
 	
+	
+	
+	/*
+	 * Checks if a user is inputting a username or email already used by another user.
+	 * Receives username and email as string 
+	 * Returns a Map<String, Boolean> which tracks the the availability of username or email or tracks exception.
+	 * */
 	
 	public static Map<String, Boolean> usernameAlreadyExists(String username, String email) {
 		boolean userPresent = false;
@@ -89,6 +110,12 @@ public class ApplicationDao {
 	}
 	
 	
+	/*
+	 * Validate a user on login by using the username and password they are inputting.
+	 * Return a Map<String,Object> to trace individually which value is incorrect out of username or password
+	 * Return a default value in case exception occurs
+	 * */
+	
 	public static Map<String, Object> validateUser(String username, String password) {
 		Map<String, Object> mapOfUserValAndRole = new HashMap<String, Object>();
 		mapOfUserValAndRole.put("userExists", -5);
@@ -109,13 +136,10 @@ public class ApplicationDao {
 			
 			if(resultSet.next()) {
 				
-				System.out.println("Encrypted Value :: " +resultSet.getString("password"));
 		        Decoder decoder = Base64.getDecoder();
 		        byte[] bytes = decoder.decode(resultSet.getString("password"));
 		        String decodedPassword = new String(bytes);
-		                 
-		        System.out.println("Decrypted Value :: " +decodedPassword);
-				
+		                 				
 				if(decodedPassword.equals(password)) {
 	                mapOfUserValAndRole.put("userExists", 1);
 	                mapOfUserValAndRole.put("userId", resultSet.getInt("id"));
@@ -137,12 +161,25 @@ public class ApplicationDao {
 	
 	
 	
-	/*---------Role methods----------------------*/
+	/*-----------------------------------Role methods--------------------------------*/
+	
+	
+	/*
+	 * Create a dummy option --Select Option-- to be added at the top of drop down in registration form
+	 * */
 	
 	public static Role selectRoleOption() {
 		Role dummyRole = new Role (0, "--Select Role--", "dummy role not in database");
 		return dummyRole;
 	}
+	
+	
+	
+	/*
+	 * Get all the roles from database.
+	 * To be displayed as drop down values registration form
+	 * Returns a list of Role Object
+	 * */
 	
 	public static List<Role> getRoles() {
         List<Role> roles = new ArrayList<>();
@@ -164,6 +201,12 @@ public class ApplicationDao {
         return roles;
     }
 	
+	
+	
+	/*
+	 * Method to fetch role id from user_role table by roleName passed into parameter
+	 * Returns id
+	 * */
 	
 	public static int getRoleIdByName(String roleName) {
         String sql = "SELECT id FROM user_role WHERE role = ?";
