@@ -233,6 +233,76 @@ input[type="submit"] {
     display: none;
 }
 
+/* coach */
+.coach-container {
+    max-width: 85vh;
+    margin: 100px auto;
+    background-color: #e0f7fa;
+    border-radius: 8px;
+    padding:  60px 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    min-height: 48vh;
+}
+
+.coach-subcontainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.specialization,
+.experience,
+.certifications,
+.availability {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width:40%;
+}
+
+
+
+.edit-coach-link {
+    text-align: center;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.edit-coach-button {
+    border-radius: 10px;
+    padding: 10px 20px;
+    background-color: #b2dfdb;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.coach-submit {
+	background-color: #0d6efd !important;
+}
+.coach-box{
+	max-width: 600px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 80px auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+.coach-box > form {
+	margin: 0;
+}
+.coach-h2 {
+	text-align: center;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 0;
+}
+
 .my-button {
     background-color: #4CAF50;
     color: white;
