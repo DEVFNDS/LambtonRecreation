@@ -1,5 +1,8 @@
 /**
- * 
+ * @author Nikita_Kapoor
+ * Implement client side validations in login and registration
+ * Make requests to servlets using AJAX
+ * display appropriate screens or redirect based on server responses through AJAX call
  */
 
 const specialCharsRegExp = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?~]/;
@@ -9,7 +12,7 @@ const charRegExp = /[a-zA-z]/;
 $(document).ready(function () {
     $("#registrationForm").submit(function (event) {
         event.preventDefault();
-        validateRegistrationForm();
+        validateRegistrationForm();   
     });
     
     $("#loginForm").submit(function (event) {
@@ -258,18 +261,21 @@ function validateRole() {
     return true;
 }
 
+
+/*
+ * submit registration form after all validations are successful
+ * use AJAX to request to servlet and handle response from servlet 
+ * display appropriate messages on the screen based on server response
+ * */
+
 function submitRegistrationForm() {
     var formData = $("#registrationForm").serialize();
     $.ajax({
         type: "POST",
         url: "register",
         data: formData,
-        success: function (response) {
-        	console.log("--nk inside response "+response);
-        	
+        success: function (response) {        	
             if (response === "success") {
-            	
-            	console.log("--nk inside success response");
             	alert("Registration successful! Please proceed to login.");
                 window.location.href = "login";
                 
@@ -295,6 +301,14 @@ function submitRegistrationForm() {
         }
     });
 }
+
+
+
+/*
+ * submit login form after all validations are successful
+ * use AJAX to request to servlet and handle response from servlet 
+ * display appropriate messages on the screen based on server response
+ * */
 
 function submitLoginForm(){
 	console.log("inside submitLogin");

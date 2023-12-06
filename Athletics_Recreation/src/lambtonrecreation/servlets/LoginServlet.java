@@ -18,8 +18,12 @@ import java.util.Base64.Encoder;
 import lambtonrecreation.dao.ApplicationDao;
 
 /**
- * Servlet implementation class LoginServlet
+ * @author Nikita_Kapoor
+ * 
+ * Implement the Login functionality
+ * requests and responses are handles via AJAX calls
  */
+
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	
@@ -28,8 +32,8 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/views/user/login.jsp");
 		dispatcher.forward(request, response);
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
+	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("assign privileges to the user for a successful login");
