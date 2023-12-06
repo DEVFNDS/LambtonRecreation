@@ -52,7 +52,12 @@
                                     <div id="passwordError" class="error"></div>
                                 </div>
                             </div>
-
+							
+							<div id="spinnerID" class="z-3 text-center">
+  								<div class="spinner-border" role="status">
+    								<span class="sr-only"></span>
+  								</div>
+  							</div><br/>
                             <button type="submit" class="btn btn-primary">Login</button>
                             <button type="button" id="resetButton" class="btn btn-secondary">Reset</button>
 

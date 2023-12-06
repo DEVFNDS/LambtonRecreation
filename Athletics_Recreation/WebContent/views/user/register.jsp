@@ -24,6 +24,7 @@
     <link rel="stylesheet" type="text/css" href="css/loginregister.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script type="text/javascript" src="js/registerLoginValidate.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 </head>
 <body>
@@ -34,6 +35,7 @@
             <div class="col-md-8">
                 <div id="registration-box">
                     <h2>User Registration Form</h2>
+                    
                     <form id="registrationForm" class="needs-validation" novalidate>
 			        <!-- server-side error message here -->
 			        <div id="serverError" style="color: red;"></div>
@@ -110,6 +112,11 @@
                             <div id="agreementError" class="error"></div>
                         </div>
 
+						<div id="spinnerID" class="z-3 text-center">
+  							<div class="spinner-border" role="status">
+    							<span class="sr-only"></span>
+  							</div>
+						</div><br/>
                         <div class="mb-3">
                             <input type="submit" value="Register" class="btn btn-primary">
                             <input type="reset" id="resetButtonRegister" value="Clear Form" class="btn btn-secondary">
@@ -121,6 +128,7 @@
     </div>
 
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> -->
+    <%@ include file="../footer.jsp" %>
 </body>
-<%@ include file="../footer.jsp" %>
+
 </html>
