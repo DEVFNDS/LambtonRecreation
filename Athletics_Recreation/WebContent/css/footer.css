@@ -106,6 +106,7 @@ footer .content .link-boxes .box{
   width: 50px;
   background: #fff;
 }
+
 .content .link-boxes .box li{
   margin: 6px 0;
   list-style: none;
@@ -130,9 +131,13 @@ footer .content .link-boxes .box{
   opacity: 1;
   text-decoration: underline;
 }
-.content .link-boxes .input-box{
+.content .link-boxes{
   margin-right: 55px;
 }
+.input-box {
+    display: flex;
+    gap: 10px;
+  }
 .link-boxes .input-box input{
   height: 40px;
   width: calc(100% + 55px);

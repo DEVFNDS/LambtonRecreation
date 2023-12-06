@@ -1,9 +1,17 @@
 package lambtonrecreation.model;
 
+/**
+ * @author Nikita_Kapoor
+ * 
+ * A bean/model to replicate the database 'user_role' table fields.
+ * Contains getter and setters for each user field
+ * Contains constructors for initializing the user object with different fields
+ * */
+
 public class Role {
-	int id;
-    String role;
-    String description;
+	private int id;
+	private String role;
+	private String description;
     
     public Role() {
     	

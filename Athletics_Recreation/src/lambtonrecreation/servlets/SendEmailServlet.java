@@ -93,25 +93,28 @@ public class SendEmailServlet extends HttpServlet {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
 
             // Set Subject: header field
-            message.setSubject("Test Subject");
+            message.setSubject("Lambton Recreation Subscription");
 
             // Now set the actual message
-            message.setText("This is a test message from your Java servlet.");
+            message.setText("Thank you for your interest in lambton recreation you will be receving the updates regrading the "
+            		+ "events to this email !!!!");
 
             // Send message
             Transport.send(message);
 
-            PrintWriter out = response.getWriter();
-            out.println("<html><body>");
-            out.println("<h3>Email sent successfully</h3>");
-            out.println("</body></html>");
+            
+            request.getRequestDispatcher("/views/home.jsp").forward(request, response);
+//            PrintWriter out = response.getWriter();
+//            out.println("<html><body>");
+//            out.println("<h3>Email sent successfully</h3>");
+//            out.println("</body></html>");
         } catch (MessagingException mex) {
             mex.printStackTrace();
 
-            PrintWriter out = response.getWriter();
-            out.println("<html><body>");
-            out.println("<h3>Error sending email: " + mex.getMessage() + "</h3>");
-            out.println("</body></html>");
+//            PrintWriter out = response.getWriter();
+//            out.println("<html><body>");
+//            out.println("<h3>Error sending email: " + mex.getMessage() + "</h3>");
+//            out.println("</body></html>");
         }
     }
 
