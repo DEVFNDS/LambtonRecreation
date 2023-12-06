@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import lambtonrecreation.dao.EventDao;
+import lambtonrecreation.dao.UserEventDao;
 import lambtonrecreation.model.Event;
 
 /**
@@ -36,8 +37,27 @@ public class ViewEventServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		List<Event> eventList = EventDao.getAllEvents();
+	
+		System.out.println("userId" + request.getSession().getAttribute("userId"));
+		if(request.getSession().getAttribute("userId") != null) {
+			String userId = String.valueOf(request.getSession().getAttribute("userId"));
+			 List<Event> userEvents = UserEventDao.getUserEvents(Integer.valueOf(userId));
+			 List<Integer> list = new ArrayList<>();
+			 for(Event userEvent : userEvents) {
+				 list.add(userEvent.getId());
+			 }
+			 List<Event> temp = new ArrayList<>();
+			 for(Event event : eventList) {
+				 if(!list.contains(event.getId())) {
+					 temp.add(event);
+				 }
+			 }
+			 
+			 request.setAttribute("eventList", temp);
+		}else {
+			 request.setAttribute("eventList", eventList);
+		 }
 		
-		 request.setAttribute("eventList", eventList);
 		 System.out.println(request.getSession().getAttribute("roleName"));
 		 
 		 if(request.getSession().getAttribute("roleName") != null && 

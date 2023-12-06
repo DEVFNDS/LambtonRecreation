@@ -373,8 +373,13 @@ function submitLoginForm(){
         url: "login",
         data: formData,
         success: function (response) {
-            if (response === "success") {
-                window.location.href = "home";      
+        	console.log("--nk inside response "+response);
+            if (response.status === "success") {
+            	if (response.isAdmin) {
+            		window.location.href = "adminPortal";
+            	} else {
+            		window.location.href = "home";
+            	}
             }
             else{
             	$("#serverError").text(response);

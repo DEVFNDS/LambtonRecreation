@@ -2,9 +2,10 @@ package lambtonrecreation.servlets;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,6 +32,8 @@ public class SportServlet extends HttpServlet {
             editSportForm(request, response);
         } else if ("delete".equals(action)) {
             deleteSport(request, response);
+        } else if ("addForm".equals(action)) {
+        	addSportForm(request, response);
         } else {
             // Default action: List all sports
             listAllSports(request, response);
@@ -51,17 +54,46 @@ public class SportServlet extends HttpServlet {
 	}
 	
 	private void listAllSports(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("inside list all sports method");
 		List<Sport> sports = sportDao.getAllSports();
+        
+		if (request.getSession().getAttribute("userId") != null) {
+        	int userId = (int) request.getSession().getAttribute("userId");
+        	
+        	for (Sport sport : sports) {
+        		boolean isFavouriteForUser = sportDao.isSportFavouriteForUser(sport.getId(), userId);
+        		if(isFavouriteForUser) {
+        			sport.setFavourite(true);
+        		}
+			}
+        }
         request.setAttribute("sports", sports);
-        request.getRequestDispatcher("/views/sport/sports.jsp").forward(request, response);
+        
+        if(request.getSession().getAttribute("roleName") != null && 
+			String.valueOf(request.getSession().getAttribute("roleName")).equalsIgnoreCase("admin")) {
+        	request.getRequestDispatcher("/views/sport/admin/sports.jsp").forward(request, response);
+        } else {
+        	request.getRequestDispatcher("/views/sport/sports.jsp").forward(request, response);
+        }
 	}
 	
+	private void addSportForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if(request.getSession().getAttribute("roleName") != null && 
+				String.valueOf(request.getSession().getAttribute("roleName")).equalsIgnoreCase("admin")) {
+            request.getRequestDispatcher("/views/sport/admin/add_sport.jsp").forward(request, response);	            
+		} else {
+			// User does not have the "admin" role, redirect or display an error message
+            response.sendRedirect(request.getContextPath() + "/sports?error=permissionDenied");
+		}
+    }
+	
 	private void addSport(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        if(request.isUserInRole("admin")) {
-        	Sport sport = createSportFromRequest(request);
-
-        	if(isValidSportData(sport)) {
+		if(request.getSession().getAttribute("roleName") != null && 
+				String.valueOf(request.getSession().getAttribute("roleName")).equalsIgnoreCase("admin")) {
+			Sport sport = createSportFromRequest(request);
+			
+			System.out.println("Validate the data");
+			Map<String, String> fieldErrors = validateSportData(sport);
+        	if(fieldErrors.isEmpty()) {
         		try {
 					sportDao.createSport(sport);
 					response.sendRedirect(request.getContextPath() + "/sports");
@@ -71,11 +103,17 @@ public class SportServlet extends HttpServlet {
 	                response.sendRedirect(request.getContextPath() + "/sports?error=failedToAddSport");
 				}
         	} else {
-        		// Data is invalid, handle the validation errors
-                // For simplicity, let's set an error message and forward to the form page
-                request.setAttribute("error", "Invalid sports data. Please check your input.");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("addSportForm.jsp");
-                dispatcher.forward(request, response);
+        		System.out.println("Invalid Data!");
+        		System.out.println(fieldErrors);
+        		request.setAttribute("fieldErrors", fieldErrors);
+        		
+        		//Retain form data by setting parameters as attributes
+        	    request.setAttribute("name", sport.getName());
+        	    request.setAttribute("description", sport.getDescription());
+        	    request.setAttribute("rules", sport.getRules());
+        	    request.setAttribute("equipmentNeeded", sport.getEquipmentNeeded());
+        	    
+        	    request.getRequestDispatcher("/views/sport/admin/add_sport.jsp").forward(request, response);
         	}
             
         }else {
@@ -87,14 +125,16 @@ public class SportServlet extends HttpServlet {
         }
     }
 	
+	
 	private void editSportForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.isUserInRole("admin")) {
+		if(request.getSession().getAttribute("roleName") != null && 
+				String.valueOf(request.getSession().getAttribute("roleName")).equalsIgnoreCase("admin")) {
 			int sportId = Integer.parseInt(request.getParameter("id"));
 	        Sport sport = sportDao.getSportById(sportId);
 	
 	        if (sport != null) {
 	            request.setAttribute("sport", sport);
-	            request.getRequestDispatcher("/views/sport/edit_sport.jsp").forward(request, response);
+	            request.getRequestDispatcher("/views/sport/admin/edit_sport.jsp").forward(request, response);
 	        } else {
 	            // Handle the case where the sport is not found
 	            response.sendRedirect(request.getContextPath() + "/sports?error=sportNotFound");
@@ -105,19 +145,29 @@ public class SportServlet extends HttpServlet {
 		}
     }
 	
-	private void updateSport(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		if(request.isUserInRole("admin")) {
+	private void updateSport(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		if(request.getSession().getAttribute("roleName") != null && 
+				String.valueOf(request.getSession().getAttribute("roleName")).equalsIgnoreCase("admin")) {
 			Sport sport = createSportFromRequest(request);
 	        sport.setId(Integer.parseInt(request.getParameter("id")));
 	
-	        try {
-	            sportDao.updateSport(sport);
-	            response.sendRedirect(request.getContextPath() + "/sports");
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	            // Handle the exception appropriately, e.g., display an error message
-	            response.sendRedirect(request.getContextPath() + "/sports?error=failedToUpdateSport");
-	        }
+	        System.out.println("Validate the data");
+			Map<String, String> fieldErrors = validateSportData(sport);
+        	if(fieldErrors.isEmpty()) {
+        		 try {
+     	            sportDao.updateSport(sport);
+     	            response.sendRedirect(request.getContextPath() + "/sports");
+     	        } catch (SQLException e) {
+     	            e.printStackTrace();
+     	            // Handle the exception appropriately, e.g., display an error message
+     	            response.sendRedirect(request.getContextPath() + "/sports?error=failedToUpdateSport");
+     	        }
+        	} else {
+        		request.setAttribute("fieldErrors", fieldErrors);
+        		request.setAttribute("sport", sport);
+        	    request.getRequestDispatcher("/views/sport/admin/edit_sport.jsp").forward(request, response);
+        	}
+	       
 		} else {
 			// User does not have the "admin" role, redirect or display an error message
             response.sendRedirect(request.getContextPath() + "/sports?error=permissionDenied");
@@ -125,7 +175,8 @@ public class SportServlet extends HttpServlet {
     }
 	
 	private void deleteSport(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		if(request.isUserInRole("admin")) {
+		if(request.getSession().getAttribute("roleName") != null && 
+				String.valueOf(request.getSession().getAttribute("roleName")).equalsIgnoreCase("admin")) {
 			int sportId = Integer.parseInt(request.getParameter("id"));
 	
 	        try {
@@ -152,28 +203,29 @@ public class SportServlet extends HttpServlet {
     }
 	
 	// Perform validation checks
-    private boolean isValidSportData(Sport sport) {
-        boolean isValid = true;
-        if(ValidationUtils.isNullOrEmpty(sport.getName())) {
-        	isValid = false;
+    private Map<String, String> validateSportData(Sport sport) {
+        Map<String, String> fieldErrors = new HashMap<>();
+        
+    	if(ValidationUtils.isNullOrEmpty(sport.getName())) {
+        	fieldErrors.put("name", "Name is required.");
         } else {
         	if(!ValidationUtils.isWithinLengthLimit(sport.getName(), 50)) {
-        		isValid = false;
+        		fieldErrors.put("name", "Name must be within 50 characters.");
         	}
         }
         if(!ValidationUtils.isNullOrEmpty(sport.getDescription()) && 
         		!ValidationUtils.isWithinLengthLimit(sport.getDescription(), 150)) {
-        	isValid = false;
+        	 fieldErrors.put("description", "Description must be within 150 characters.");
         }
         if(!ValidationUtils.isNullOrEmpty(sport.getRules()) && 
         		!ValidationUtils.isWithinLengthLimit(sport.getRules(), 100)) {
-        	isValid = false;
+        	fieldErrors.put("rules", "Rules must be within 100 characters.");
         }
         if(!ValidationUtils.isNullOrEmpty(sport.getEquipmentNeeded()) && 
         		!ValidationUtils.isWithinLengthLimit(sport.getEquipmentNeeded(), 100)) {
-        	isValid = false;
+        	fieldErrors.put("equipmentNeeded", "Equipment Needed must be within 100 characters.");
         }
-        return isValid;
+        return fieldErrors;
     }
 
 }

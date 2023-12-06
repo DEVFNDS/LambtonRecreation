@@ -1,7 +1,7 @@
 package lambtonrecreation.servlets;
 
 import java.io.IOException;
-
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -12,8 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import java.util.Base64;
-import java.util.Base64.Encoder;
+import com.google.gson.Gson;
 
 import lambtonrecreation.dao.ApplicationDao;
 
@@ -49,15 +48,31 @@ public class LoginServlet extends HttpServlet {
 				case 1:
 					HttpSession session = request.getSession();
 					session.setAttribute("username", username);
-					if(mapOfUserValAndRole.containsKey("roleName")) {
-						session.setAttribute("roleName", (String) mapOfUserValAndRole.get("roleName"));
-					}
 					
+					String roleName = null;
+					if(mapOfUserValAndRole.containsKey("roleName")) {
+						roleName = (String) mapOfUserValAndRole.get("roleName");
+						session.setAttribute("roleName", roleName);
+					}
+						
 					if(mapOfUserValAndRole.containsKey("userId")) {
 						session.setAttribute("userId", (int) mapOfUserValAndRole.get("userId"));
 					}
 					
-					response.getWriter().write("success");	
+					// Create a JSON object to include roleName and userId
+                    Gson gson = new Gson();
+                    Map<String, Object> responseData = new HashMap<>();
+                    
+                    responseData.put("status", "success");
+                    responseData.put("roleName", roleName);
+                    responseData.put("userId", session.getAttribute("userId"));
+                    
+                    if ("admin".equalsIgnoreCase(roleName)) {
+                        responseData.put("isAdmin", true);
+                    }
+                    
+                    response.setContentType("application/json");
+                    response.getWriter().write(gson.toJson(responseData));
 					break;
 				
 				case 0:

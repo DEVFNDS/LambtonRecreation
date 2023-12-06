@@ -11,6 +11,7 @@ public class Sport {
     private String description;
     private String rules;
     private String equipmentNeeded;
+    private boolean isFavourite; /* used to verify if user selects the sport as favourite*/
 	
     public int getId() {
 		return id;
@@ -42,5 +43,10 @@ public class Sport {
 	public void setEquipmentNeeded(String equipmentNeeded) {
 		this.equipmentNeeded = equipmentNeeded;
 	}
-
+	public boolean isFavourite() {
+		return isFavourite;
+	}
+	public void setFavourite(boolean isFavourite) {
+		this.isFavourite = isFavourite;
+	}
 }

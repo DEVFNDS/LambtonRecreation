@@ -7,16 +7,12 @@
     <meta charset="ISO-8859-1">
     <title>Welcome to Athletes and Recreation</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 </head>
 <body>
 
-<nav>
-    <a href="#">Home</a>
-    <a href="#">Sports</a>
-    <a href="#">Events</a>
-    <a href="#">News/Articles</a>
-    <a href="#">Register</a>
-</nav>
+<%@ include file="../header.jsp" %>
 
 <%@ page import="java.util.List" %>
 <%@ page import="lambtonrecreation.model.Sport" %>
@@ -176,5 +172,6 @@
     }
 </script>
 
+<%@ include file="../footer.jsp" %>
 </body>
 </html>
