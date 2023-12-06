@@ -21,19 +21,7 @@
 		<img src="images/Sports.png" alt="Sports Image" id="sports-image">
 		<button class="overlay-button" onclick="window.location.href='sports'" id="view_sports_btn">View Sports</button>
 	</section>
-
-	
-	<section id="eventsSection">
-	    <!-- Content for the Events section -->
-	</section>
-
-	
-	<section id="newsSection">
-	    <!-- Content for the News/Articles section -->
-	</section>
 	
 </body>
-
-	<%@ include file="footer.jsp" %>
-
+<%@ include file="footer.jsp" %>
 </html>

@@ -111,6 +111,7 @@ form {
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    text-align: center;
 }
 
 .card .description {
@@ -154,11 +155,12 @@ form {
 /************event style************/
 /* Event form styling */
 form {
-	
-    max-width: 600px;
-    margin: 0px;
-    padding: 0px;
+	max-width: 600px;
+    margin: 100px auto;
+    background-color: #fff;
+    padding: 20px;
     border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 label {
