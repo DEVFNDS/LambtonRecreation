@@ -11,7 +11,13 @@
     <a href="home">Home</a>
     <a href="sports">Sports</a>
     <a href="viewevent">Events</a>
-    
+    <% if (roleName != null && roleName.equals("Coach")) { %>
+    <a href="insertcoach">Profile</a>
+	<% } %>
+	<% if (roleName != null && roleName.equals("Player")) { %>
+    <a href="insertathlete">Profile</a>
+	<% } %>
+   
     <% if (username != null){ %>
      	<a href="views/user/userinfo.jsp"><p style="color: pink; margin: 0;"><%= username %> | <%= roleName %></p></a>
      	<a href="logout">Logout</a>
