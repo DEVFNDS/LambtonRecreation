@@ -2,17 +2,25 @@ package lambtonrecreation.model;
 
 import java.util.Date;
 
+/**
+ * @author Nikita_Kapoor
+ * 
+ * A bean/model to replicate the database 'user' table fields.
+ * Contains getter and setters for each user field
+ * Contains constructors for initializing the user object with different fields
+ * */
+
 public class User {
-	int id;
-    String firstName;
-    String lastName;
-    String username;
-    String password;
-    Date dob;
+	private int id;
+	private String firstName;
+	private String lastName;
+	private String username;
+	private String password;
+    private Date dob;
     private String gender;
     private boolean agreement;
     private String email;
-    int role;
+    private int role;
 
     public User() {
     }
