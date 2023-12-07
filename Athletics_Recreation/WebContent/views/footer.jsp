@@ -43,9 +43,9 @@
         <li>Saturday: 10:00AM to 6:00PM</li>
         <li>Sunday: Closed</li>
       </ul>
-      <ul class="box input-box">
+      <ul class="box">
         <li class="link_name">Subscribe</li>
-        <form action="SendEmailServlet" method="post">
+        <form id="subscribe_form" action="SendEmailServlet" method="post">
         	<li><input type="email" name="email" placeholder="Enter your email" /></li>
         	<li><input type="submit" value="Submit"  /></li>
         </form>

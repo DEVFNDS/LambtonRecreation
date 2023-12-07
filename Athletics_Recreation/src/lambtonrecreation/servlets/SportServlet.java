@@ -209,7 +209,9 @@ public class SportServlet extends HttpServlet {
     	if(ValidationUtils.isNullOrEmpty(sport.getName())) {
         	fieldErrors.put("name", "Name is required.");
         } else {
-        	if(!ValidationUtils.isWithinLengthLimit(sport.getName(), 50)) {
+        	if (!sport.getName().matches("^[a-zA-Z ]+$")) {
+                fieldErrors.put("name", "Name must contain only characters.");
+            } else if(!ValidationUtils.isWithinLengthLimit(sport.getName(), 50)) {
         		fieldErrors.put("name", "Name must be within 50 characters.");
         	}
         }

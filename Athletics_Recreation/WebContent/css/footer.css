@@ -244,3 +244,12 @@ footer .bottom-details .bottom_text{
     width: 100%;
   }
 }
+
+#subscribe_form {
+	max-width: 600px;
+    margin: 0px;
+    padding: 0px;
+    border-radius: 8px;
+    background-color: rgb(137,137,137) !important;
+    box-shadow: 0 0 0px rgba(0, 0, 0, 0.1);
+}
