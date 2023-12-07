@@ -38,19 +38,7 @@
       <h2 class="mt-3 text-center" style="color: #007bff">User Profile</h2>
       <div class="cards">
         <!-- User profile picture -->
-        <div class="card-text">
-          <img src="images/team-1.jpg" alt="" id="userimg" />
-        </div>
-        <!-- Card for user information
-        <div class="card" style="width: 50vh">
-          <div class="card-text">
-            <h2><%= user.getFirstName() %> <%= user.getLastName() %></h2>
-             <p class="text-muted"><%= user.getGender() %></p>
-            <p class="text-muted"><%= user.getDob() %></p>
-            <p style="text-decoration: underline">Contact Info:</p>
-            <h5><%= user.getEmail() %></h5>
-          </div>
-        </div> -->
+   
         <div class="card text-center" style="width: 50vh; border: none; background-color: #fff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
   <img src="images/team-1.png" class="card-img-top rounded-circle" alt="User Image" style="width: 100px; height: 100px; object-fit: cover; margin: 20px auto;">
   <div class="card-body">

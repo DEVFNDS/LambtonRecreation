@@ -69,7 +69,7 @@ public class EditEventServletUpdate extends HttpServlet {
             	request.setAttribute("alertMessage", "Successfully Updated the Event !!!");
 
                 // Forward the request to the JSP page
-                RequestDispatcher dispatcher = request.getRequestDispatcher("views/event/eventCard.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/views/home.jsp");
                 dispatcher.forward(request, response);
             }
 

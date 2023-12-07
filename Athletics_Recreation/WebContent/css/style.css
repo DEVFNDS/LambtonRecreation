@@ -168,6 +168,13 @@ label {
     margin-bottom: 8px;
 }
 
+form#eventFormId{
+	margin-left : 300px;
+}
+form#formeditId{
+	margin-left : 300px;
+}
+
 input,
 select,
 textarea {

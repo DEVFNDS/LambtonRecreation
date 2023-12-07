@@ -19,7 +19,7 @@
 	<% } %>
    
     <% if (username != null){ %>
-     	<a href="views/user/userinfo.jsp"><p style="color: pink; margin: 0;"><%= username %> | <%= roleName %></p></a>
+     	<a href="userinfo"><p style="color: pink; margin: 0;"><%= username %> | <%= roleName %></p></a>
      	<a href="logout">Logout</a>
     <% } else { %>
      	<a href="register">Sign up</a>
