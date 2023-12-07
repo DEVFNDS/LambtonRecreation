@@ -1,6 +1,7 @@
-package lambtonrecreation.servlets;
+	package lambtonrecreation.servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import lambtonrecreation.dao.EventDao;
+import lambtonrecreation.model.Sport;
 
 /**
  * Servlet implementation class DeleteEventServlet
@@ -30,18 +32,30 @@ public class DeleteEventServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String id = request.getParameter("id");
-		// Delete the user event mapping first
-		EventDao.deleteUserEventMapping(id);
-		EventDao.delete(id);
 		
-		request.setAttribute("alertMessage", "Successfully delted the Event !!!");
+		if(request.getSession().getAttribute("roleName") != null && 
+				 String.valueOf(request.getSession().getAttribute("roleName")).equalsIgnoreCase("admin")) {
 
-        // Forward the request to the JSP page
-        RequestDispatcher dispatcher = request.getRequestDispatcher("views/event/eventCard.jsp");
-        dispatcher.forward(request, response);
+			String id = request.getParameter("id");
+			// Delete the user event mapping first
+			EventDao.deleteUserEventMapping(id);
+			EventDao.delete(id);
+			
+			request.setAttribute("alertMessage", "Successfully delted the Event !!!");
+
+	        // Forward the request to the JSP page
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/views/home.jsp");
+	        dispatcher.forward(request, response);
+			 
+		 }else {
+			 
+			 RequestDispatcher dispatcher = request.getRequestDispatcher("/views/home.jsp");
+				dispatcher.forward(request, response);
+		 }
 		
+		
+		// TODO Auto-generated method stub
+	
 	}
 
 	

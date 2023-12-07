@@ -27,8 +27,8 @@ public class EditCoachServletUpdate extends HttpServlet {
                 String username = String.valueOf(request.getSession().getAttribute("username"));
                 System.out.println("username " + username);
                 if (username != null) {
-                    String sportsSpecializedIn = request.getParameter("sports_specialized_in");
-                    String coachingExperience = request.getParameter("coaching_experience");
+                    String sportsSpecializedIn = request.getParameter("sportsSpecializedIn");
+                    String coachingExperience = request.getParameter("coachingExperience");
                     String certifications = request.getParameter("certifications");
                     String availability = request.getParameter("availability");
 

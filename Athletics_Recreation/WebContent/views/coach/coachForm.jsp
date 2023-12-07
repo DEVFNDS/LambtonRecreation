@@ -14,31 +14,84 @@
 <%@ include file="../header.jsp" %>
 <div class="coach-box">
 <h2 class="coach-h2">Coach Profile</h2>
-<form action="insertcoach" method="post">
-	
-
-    <label for="sports_specialized_in">Sports Specialized In:</label>
-    <input type="text" id="sports_specialized_in" name="sports_specialized_in" required>
+<form action="insertcoach" method="post" onsubmit="return validateForm()">
+    <label for="sportsSpecializedIn">Sports Specialized In:</label>
+    <input type="text" id="sportsSpecializedIn" name="sportsSpecializedIn">
+    <span id="sportsSpecializedInError" class="error-message"></span>
+    
     <br>
 
-    <label for="coaching_experience">Coaching Experience:</label>
-    <input type="text" id="coaching_experience" name="coaching_experience" required>
+    <label for="coachingExperience">Coaching Experience:</label>
+    <input type="text" id="coachingExperience" name="coachingExperience">
+    <span id="coachingExperienceError" class="error-message"></span>
     <br>
 
     <label for="certifications">Certifications:</label>
-    <input type="text" id="certifications" name="certifications" required>
+    <input type="text" id="certifications" name="certifications">
+    <span id="certificationsError" class="error-message"></span>
     <br>
 
     <label for="availability">Availability:</label>
-    <input type="text" id="availability" name="availability" required>
+    <input type="text" id="availability" name="availability">
+    <span id="availabilityError" class="error-message"></span>
     <br>
 
-    <!-- Add more fields here based on your Coach model -->
+    
 
     <input type="submit" value="Submit" class="coach-submit">
 </form>
 </div>
 
+<script>
+function validateForm() {
+    // Get input values
+    var sportsSpecializedIn = document.getElementById('sportsSpecializedIn').value;
+    var coachingExperience = document.getElementById('coachingExperience').value;
+    var certifications = document.getElementById('certifications').value;
+    var availability = document.getElementById('availability').value;
+
+    // Set max and min length for each field
+    var maxLength = 50; 
+    var minLength = 3;  
+
+    // Validate Sports Specialized In
+    if (sportsSpecializedIn.trim() === '' || sportsSpecializedIn.length > maxLength || sportsSpecializedIn.length < minLength) {
+        document.getElementById('sportsSpecializedInError').innerText = "Must be between" + minLength + " and " + maxLength + " characters. Mention Not Applicable otherwise";
+        return false;
+    } else {
+        document.getElementById('sportsSpecializedInError').innerText = "";
+    }
+
+    // Validate Coaching Experience
+    if (coachingExperience.trim() === '' || coachingExperience.length > maxLength || coachingExperience.length < minLength) {
+        document.getElementById('coachingExperienceError').innerText = "Must be between " + minLength + " and " + maxLength + " characters. Mention Not Applicable otherwise";
+        return false;
+    } else {
+        document.getElementById('coachingExperienceError').innerText = "";
+    }
+
+    // Validate Certifications
+    if (certifications.trim() === '' || certifications.length > maxLength || certifications.length < minLength) {
+        document.getElementById('certificationsError').innerText = "Must be between " + minLength + " and " + maxLength + " characters. Mention Not Applicable otherwise";
+        return false;
+    } else {
+        document.getElementById('certificationsError').innerText = "";
+    }
+
+    // Validate Availability
+    if (availability.trim() === '' || availability.length > maxLength || availability.length < minLength) {
+        document.getElementById('availabilityError').innerText = "Must be between " + minLength + " and " + maxLength + " characters. Mention Not Applicable otherwise";
+        return false;
+    } else {
+        document.getElementById('availabilityError').innerText = "";
+    }
+
+    // If all validations pass, the form will be submitted
+    return true;
+}
+</script>
+
 </body>
 <%@ include file="../footer.jsp" %>
 </html>
+
