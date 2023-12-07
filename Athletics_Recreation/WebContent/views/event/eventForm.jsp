@@ -30,7 +30,6 @@
     request.setAttribute("sports", sports);
 %>
 
-<br><br><br>
 <form id="eventFormId" action="insertevent" method="post" onsubmit="return validateForm()" novalidate>
     <label for="name">Event Name:</label>
     <input type="text" id="name" name="name" required>
