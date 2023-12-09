@@ -96,8 +96,8 @@ public class SendEmailServlet extends HttpServlet {
             message.setSubject("Lambton Recreation Subscription");
 
             // Now set the actual message
-            message.setText("Thank you for your interest in lambton recreation you will be receving the updates regrading the "
-            		+ "events to this email !!!!");
+            message.setText("I hope this message finds you well. Thank you for your interest in Lambton Athletics and Recreation! We're exc"
+            		+ "ited to keep you informed about upcoming events, activities, and exciting happenings in the world of sports and recreation." + "\n\n\n" + "Thanks & Regards \n " + "Lambton Team");
 
             // Send message
             Transport.send(message);

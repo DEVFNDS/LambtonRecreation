@@ -15,6 +15,21 @@
 
 	<%@ include file="header.jsp" %>
 	
+	 <%
+    // Retrieve the message attribute from the request
+    String alertMessage = (String) request.getAttribute("alertMessage");
+
+    // Check if the message is not null or empty
+    if (alertMessage != null && !alertMessage.isEmpty()) {
+%>
+    <!-- Use JavaScript to display an alert when the page loads -->
+    <script>
+        alert("<%= alertMessage %>");
+    </script>
+<%
+    }
+%>
+	
 	<img src="images/Home.png" alt="Welcome Image" id="welcome-image">
 	
 	<section id="sportsSection">

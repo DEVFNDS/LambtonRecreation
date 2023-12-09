@@ -295,6 +295,7 @@ input[type="submit"] {
 }
 .coach-box > form {
 	margin: 0;
+	padding: 20px;
 }
 .coach-h2 {
 	text-align: center;
@@ -380,6 +381,7 @@ input[type="submit"] {
 }
 .athlete-box > form {
 	margin: 0;
+	padding: 20px;
 }
 .athlete-h2 {
 	text-align: center;
@@ -388,5 +390,12 @@ input[type="submit"] {
     padding: 10px;
     border-radius: 8px 8px 0 0;
     margin-bottom: 0;
+}
+
+.profile-error {
+	color: red;
+    font-size: 14px;
+    position: relative;
+    top: -15px;
 }
 

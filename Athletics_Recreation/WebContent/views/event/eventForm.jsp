@@ -65,6 +65,21 @@
 </form>
 
 <script>
+
+	const currentDate = new Date();
+	
+	const formattedDate = currentDate.toISOString().slice(0,16);
+	document.getElementById("date_time").min = formattedDate;
+
+	
+	const myDateTimeInput = document.getElementById("date_time");
+	const otherdate = document.getElementById("registration_deadline");
+	
+	myDateTimeInput.addEventListener('input',function(){
+		otherdate.min = myDateTimeInput.value;
+	});
+	
+
     function validateForm() {
         // Reset error messages
         clearErrors();
@@ -75,7 +90,10 @@
             showError("name", "Event Name is required.");
             return false;
         }
-
+        
+        // Set max and min length for each field
+        
+        
         // Validate Sport ID
         var sportIdField = document.getElementById("sport_id");
         var sportIdValue = sportIdField.value.trim();
@@ -108,12 +126,15 @@
         }
 
         // Validate Description
-        // var descriptionField = document.getElementById("description");
-        // if (descriptionField.value.trim() === "") {
-        //     showError("description", "Description is required.");
-        //     return false;
-        // }
+         var descriptionField = document.getElementById("description");
+        if (descriptionField.value.trim() === "") {
+            showError("description", "Description is required.");
+             return false;
+         }
 
+        
+        
+        
         // Validate Registration Deadline
         var registrationDeadlineField = document.getElementById("registration_deadline");
         

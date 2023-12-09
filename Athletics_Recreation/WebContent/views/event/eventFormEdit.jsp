@@ -31,8 +31,7 @@
     request.setAttribute("event", event);
 %>
 
-
-<form action="EditEventServletUpdate" method="post" onsubmit="return validateForm()" novalidate>
+<form id="formeditId" action="EditEventServletUpdate" method="post" onsubmit="return validateForm()" novalidate>
     
     <input type="hidden" name="id" value="${event.id}" >
     
